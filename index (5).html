@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zead Reda Abdallah — Communication &amp; Electronics Engineer</title>
+<meta name="description" content="Zead Reda Abdallah — Communication and Electronics Engineer specializing in IoT, Embedded Systems and Networking."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a120d;--bg2:#0d1a13;--card:#101d16;
+  --border:#24392d;--text:#e8f2ea;--muted:#7c9686;
+  --accent:#e8a33d;--accent2:#ffc766;--accent3:#c97f22;
+  --trace:#25402f;--good:#6fd68a;
+  --glow:rgba(232,163,61,.22);--glow2:rgba(232,163,61,.09);
+  --nav-bg:rgba(10,18,13,.92);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+h1,h2,h3,.mono{font-family:'IBM Plex Mono',monospace;}
+[dir="rtl"] body{font-family:'Cairo',sans-serif;}
+
+/* ══ SPLASH ══ */
+#splash{position:fixed;inset:0;background:#0a120d;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;overflow:hidden;}
+#splash-chip{width:78px;height:78px;opacity:0;transform:translateY(-120px);filter:drop-shadow(0 0 24px rgba(232,163,61,.7));}
+#splash-name{font-size:2.2rem;font-weight:700;letter-spacing:.28em;color:var(--accent2);font-family:'IBM Plex Mono',monospace;opacity:0;transform:translateY(90px);}
+#splash-chip.p1{animation:sChipIn .65s .1s cubic-bezier(.34,1.4,.64,1) forwards;}
+#splash-name.p1{animation:sNameIn .65s .1s cubic-bezier(.34,1.4,.64,1) forwards;}
+@keyframes sChipIn{to{opacity:1;transform:translateY(0);}}
+@keyframes sNameIn{to{opacity:1;transform:translateY(0);}}
+#splash-chip.p2{animation:sChipGrow .9s .05s cubic-bezier(.4,0,.6,1) forwards;}
+#splash-name.p2{animation:sNameDown .9s .05s ease forwards;}
+@keyframes sChipGrow{0%{opacity:1;width:78px;height:78px;transform:translateY(0);}100%{opacity:.5;width:160vw;height:160vw;transform:translateY(-8%);}}
+@keyframes sNameDown{0%{opacity:1;transform:translateY(0);font-size:2.2rem;}40%{opacity:1;transform:translateY(18px);font-size:1.5rem;}100%{opacity:.7;transform:translateY(56px);font-size:1.1rem;}}
+#splash.fadeout{animation:sFade .55s ease forwards;}
+@keyframes sFade{to{opacity:0;pointer-events:none;}}
+
+/* ══ LOADSCR ══ */
+#loadscr{position:fixed;inset:0;background:var(--bg);z-index:9998;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
+.lring{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ══ BACKGROUND CIRCUIT TRACES ══ */
+#bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+#circuit-bg{position:absolute;inset:0;width:100%;height:100%;opacity:.5;}
+.trace{fill:none;stroke:var(--trace);stroke-width:1.4;}
+.pulse{fill:none;stroke:var(--accent);stroke-width:1.8;stroke-dasharray:6 400;animation:pulseFlow 5.5s linear infinite;opacity:.55;}
+.pulse.p2{animation-duration:7s;animation-delay:1.2s;}
+.pulse.p3{animation-duration:6.2s;animation-delay:2.4s;}
+@keyframes pulseFlow{to{stroke-dashoffset:-800;}}
+.pad{fill:var(--trace);}
+
+/* ══ NAV ══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:var(--nav-bg);border-bottom:1px solid rgba(232,163,61,.1);padding:0 clamp(1rem,4vw,3rem);height:64px;display:flex;align-items:center;justify-content:space-between;opacity:0;transform:translateY(-20px);transition:opacity .5s,transform .5s;}
+nav.show{opacity:1;transform:translateY(0);}
+.nav-logo{font-family:'IBM Plex Mono',monospace;font-size:.92rem;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:9px;font-weight:700;letter-spacing:.04em;}
+.nav-links{display:flex;gap:clamp(.5rem,2vw,1.7rem);list-style:none;align-items:center;}
+.nav-links a{font-size:.7rem;text-decoration:none;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:600;transition:color .2s;position:relative;padding-bottom:4px;font-family:'IBM Plex Mono',monospace;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--accent);transition:width .3s;border-radius:2px;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.lang-btn{background:transparent;border:1px solid rgba(232,163,61,.35);color:var(--muted);border-radius:6px;padding:4px 10px;font-size:.7rem;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-weight:700;transition:all .2s;}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;}
+
+/* ══ SECTIONS ══ */
+section{position:relative;z-index:1;padding:clamp(5rem,10vw,8rem) clamp(1.5rem,6vw,5rem);max-width:1100px;margin:0 auto;}
+.sec-tag{display:inline-flex;align-items:center;gap:.5rem;border:1.5px solid var(--accent);color:var(--accent);font-size:.75rem;padding:3px 12px;border-radius:3px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;margin-bottom:.8rem;font-weight:700;}
+.sec-tag .ref{color:var(--muted);font-weight:400;}
+.sec-bg{font-size:clamp(2.2rem,7vw,4.4rem);font-weight:700;color:rgba(232,163,61,.05);letter-spacing:.05em;text-transform:uppercase;line-height:1;margin-bottom:-2rem;user-select:none;font-family:'IBM Plex Mono',monospace;}
+.sec-title{font-size:clamp(1.5rem,3.6vw,2.2rem);font-weight:700;margin-bottom:2.4rem;line-height:1.3;}
+.sec-title .hl{color:var(--accent);}
+
+/* ══ SCROLL REVEAL ══ */
+.rv{transition:opacity .65s ease,transform .65s ease;opacity:0;transform:translateY(50px);}
+.rv.in{opacity:1;transform:translate(0,0)!important;}
+.rv.out-down{opacity:0;transform:translateY(50px)!important;}
+.rv.out-up{opacity:0;transform:translateY(-50px)!important;}
+.rv-l{transition:opacity .65s ease,transform .65s ease;opacity:0;transform:translateX(-60px);}
+.rv-l.in{opacity:1;transform:translate(0,0)!important;}
+.rv-l.out-down,.rv-l.out-up{opacity:0;transform:translateX(-60px)!important;}
+.rv-r{transition:opacity .65s ease,transform .65s ease;opacity:0;transform:translateX(60px);}
+.rv-r.in{opacity:1;transform:translate(0,0)!important;}
+.rv-r.out-down,.rv-r.out-up{opacity:0;transform:translateX(60px)!important;}
+.d1{transition-delay:.05s;}.d2{transition-delay:.15s;}.d3{transition-delay:.25s;}.d4{transition-delay:.35s;}.d5{transition-delay:.45s;}
+
+/* ══ HERO ══ */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:80px;overflow:hidden;}
+.hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;width:100%;}
+.hero-text{opacity:0;transform:translateY(50px);transition:opacity .8s .1s,transform .8s .1s;}
+.hero-text.on{opacity:1;transform:translateY(0);}
+.hero-greeting{font-size:1rem;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-bottom:.4rem;}
+.hero-name{font-size:clamp(2.2rem,5.4vw,3.8rem);font-weight:700;line-height:1.05;letter-spacing:-.01em;margin-bottom:.8rem;font-family:'IBM Plex Mono',monospace;}
+.hero-name .colored{display:block;color:var(--accent);}
+.hero-sub{font-size:.98rem;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-bottom:.3rem;}
+.hero-sub strong{color:var(--accent);}
+.typing-row{font-size:1.1rem;font-weight:600;color:var(--accent2);height:1.8rem;overflow:hidden;margin-bottom:1.8rem;display:flex;align-items:center;gap:2px;font-family:'IBM Plex Mono',monospace;}
+.t-cur{animation:blink .7s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.hero-cta{display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap;margin-bottom:2.2rem;}
+.btn-hire{background:var(--accent);color:#0a120d;border:none;border-radius:4px;padding:12px 28px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:'IBM Plex Mono',monospace;text-decoration:none;transition:all .3s;letter-spacing:.05em;position:relative;overflow:hidden;}
+.btn-hire::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background .3s;}
+.btn-hire:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(232,163,61,.4);}
+.btn-hire:hover::after{background:rgba(255,255,255,.1);}
+.cv-link{color:var(--accent);font-size:.85rem;font-weight:700;text-decoration:none;font-family:'IBM Plex Mono',monospace;letter-spacing:.03em;transition:all .2s;display:flex;align-items:center;gap:6px;}
+.cv-link:hover{color:#fff;text-shadow:0 0 10px var(--accent);}
+.cv-link::before{content:'↓';font-size:1rem;}
+.hero-stats{display:flex;gap:1.4rem;flex-wrap:wrap;}
+.sbox{background:rgba(232,163,61,.05);border:1px solid rgba(232,163,61,.16);border-radius:6px;padding:.7rem 1.05rem;text-align:center;transition:all .3s;}
+.sbox:hover{border-color:var(--accent);box-shadow:0 6px 18px var(--glow2);}
+.snum{font-size:1.4rem;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--accent);}
+.slbl{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-family:'IBM Plex Mono',monospace;}
+
+/* HERO VISUAL — datasheet card */
+.hero-vis{position:relative;display:flex;flex-direction:column;align-items:center;gap:1.2rem;opacity:0;transform:translateX(50px);transition:opacity .8s .3s,transform .8s .3s;}
+.hero-vis.on{opacity:1;transform:translateX(0);}
+.hero-circle{position:absolute;width:300px;height:300px;top:10px;border-radius:50%;background:radial-gradient(circle at 38% 38%,rgba(232,163,61,.35) 0%,rgba(232,163,61,.15) 40%,rgba(232,163,61,.05) 65%,transparent 80%);animation:hCircle 4s ease-in-out infinite;z-index:0;}
+@keyframes hCircle{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+.hero-photo-wrap{position:relative;z-index:2;width:220px;height:220px;}
+.hero-ring{position:absolute;inset:-5px;border-radius:16px;background:conic-gradient(var(--accent) 0%,var(--accent3) 40%,var(--accent2) 70%,var(--accent) 100%);animation:spinRing 8s linear infinite;}
+@keyframes spinRing{to{transform:rotate(360deg);}}
+.hero-photo-inner{position:absolute;inset:5px;border-radius:12px;background:var(--card);overflow:hidden;display:flex;align-items:center;justify-content:center;}
+#profileImg{width:100%;height:100%;object-fit:cover;object-position:top;display:none;}
+#profileEmoji{font-size:4.4rem;}
+.spec-card{position:relative;z-index:2;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.9rem 1.1rem;width:250px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;}
+.spec-card .spec-title{color:var(--accent);font-weight:700;letter-spacing:.08em;margin-bottom:.5rem;text-transform:uppercase;font-size:.66rem;}
+.spec-row{display:flex;justify-content:space-between;padding:3px 0;border-top:1px dashed var(--border);color:var(--muted);}
+.spec-row:first-of-type{border-top:none;}
+.spec-row b{color:var(--text);font-weight:500;}
+.spec-row .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--good);margin-inline-end:5px;box-shadow:0 0 6px var(--good);}
+
+/* ══ ABOUT ══ */
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.about-who{font-size:1.2rem;font-weight:700;margin-bottom:1rem;}
+.about-who .hl{color:var(--accent);}
+.about-body{color:var(--muted);line-height:1.85;font-size:.94rem;margin-bottom:1.7rem;}
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1.6rem;}
+.astat{background:var(--card);border:1px solid rgba(232,163,61,.14);border-radius:8px;padding:.85rem .5rem;text-align:center;transition:all .4s;position:relative;overflow:hidden;}
+.astat-fill{position:absolute;bottom:0;left:0;right:0;height:0;background:linear-gradient(to top,rgba(232,163,61,.1),transparent);transition:height .8s ease;}
+.astat.go .astat-fill{height:100%;}
+.astat-num{position:relative;font-size:1.3rem;font-weight:700;color:var(--accent);font-family:'IBM Plex Mono',monospace;}
+.astat-lbl{position:relative;font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px;font-family:'IBM Plex Mono',monospace;}
+.btn-contact{display:inline-block;border:1.5px solid var(--accent);color:var(--accent);text-decoration:none;padding:11px 26px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:.8rem;letter-spacing:.05em;transition:all .3s;}
+.btn-contact:hover{background:var(--accent);color:#0a120d;box-shadow:0 8px 24px var(--glow2);}
+.about-info{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.6rem;}
+.ainfo-row{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-bottom:1px dashed var(--border);font-size:.85rem;}
+.ainfo-row:last-child{border-bottom:none;}
+.ainfo-row span:first-child{color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;}
+.ainfo-row span:last-child{color:var(--text);font-weight:500;text-align:right;}
+[dir="rtl"] .ainfo-row span:last-child{text-align:left;}
+
+/* ══ SKILLS ══ */
+.skills-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.skill-group{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.4rem;}
+.skill-group h4{font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;}
+.skill-chips{display:flex;flex-wrap:wrap;gap:.5rem;}
+.chip{background:rgba(232,163,61,.07);border:1px solid rgba(232,163,61,.2);color:var(--text);font-size:.76rem;padding:5px 11px;border-radius:5px;font-family:'IBM Plex Mono',monospace;transition:all .2s;}
+.chip:hover{border-color:var(--accent);color:var(--accent2);transform:translateY(-2px);}
+
+/* ══ EXPERIENCE ══ */
+.timeline{position:relative;padding-inline-start:2rem;}
+.timeline::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--trace);}
+[dir="rtl"] .timeline::before{left:auto;right:6px;}
+.tl-item{position:relative;padding-bottom:2.2rem;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-dot{position:absolute;left:-2rem;top:4px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2.5px solid var(--accent);box-shadow:0 0 0 4px rgba(232,163,61,.12);}
+[dir="rtl"] .tl-dot{left:auto;right:-2rem;}
+.tl-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.3rem 1.5rem;}
+.tl-role{font-weight:700;font-size:1rem;margin-bottom:.15rem;}
+.tl-meta{font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:.76rem;margin-bottom:.15rem;}
+.tl-date{font-family:'IBM Plex Mono',monospace;color:var(--muted);font-size:.72rem;margin-bottom:.8rem;}
+.tl-points{color:var(--muted);font-size:.86rem;line-height:1.75;padding-inline-start:1.1rem;}
+.tl-points li{margin-bottom:.15rem;}
+
+/* ══ PROJECTS ══ */
+.pfilters{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2rem;}
+.pf-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 16px;border-radius:20px;font-size:.75rem;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.03em;transition:all .2s;}
+.pf-btn:hover{border-color:var(--accent);color:var(--accent);}
+.pf-btn.on{background:var(--accent);border-color:var(--accent);color:#0a120d;}
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.3rem;}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.5rem;transition:all .35s;opacity:1;transform:scale(1);}
+.pcard.hide{display:none;}
+.pcard:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.35);}
+.pcard-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem;}
+.pcard-emoji{font-size:1.7rem;}
+.pcard-cat{font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--accent);border:1px solid rgba(232,163,61,.3);padding:2px 9px;border-radius:12px;text-transform:uppercase;letter-spacing:.05em;}
+.pcard h4{font-size:1.02rem;font-weight:700;margin-bottom:.5rem;}
+.pcard p{color:var(--muted);font-size:.84rem;line-height:1.65;margin-bottom:1rem;}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+.ptag{font-size:.68rem;color:var(--muted);background:rgba(255,255,255,.03);border:1px solid var(--border);padding:2px 8px;border-radius:4px;font-family:'IBM Plex Mono',monospace;}
+
+/* ══ CERTS ══ */
+.cgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;}
+.ccard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.3rem 1.5rem;display:flex;align-items:center;gap:1rem;transition:all .3s;}
+.ccard:hover{border-color:var(--accent);transform:translateY(-3px);}
+.ccard .cicon{font-size:1.6rem;}
+.ccard h5{font-size:.92rem;font-weight:700;margin-bottom:.15rem;}
+.ccard span{color:var(--muted);font-size:.76rem;font-family:'IBM Plex Mono',monospace;}
+
+/* ══ CONTACT ══ */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+.contact-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:2rem;}
+.contact-card p{color:var(--muted);line-height:1.8;font-size:.92rem;margin-bottom:1.6rem;}
+.clinks{display:flex;flex-direction:column;gap:.9rem;}
+.clink{display:flex;align-items:center;gap:.8rem;color:var(--text);text-decoration:none;font-size:.9rem;background:rgba(232,163,61,.05);border:1px solid var(--border);padding:.8rem 1rem;border-radius:8px;transition:all .25s;}
+.clink:hover{border-color:var(--accent);transform:translateX(4px);}
+[dir="rtl"] .clink:hover{transform:translateX(-4px);}
+.clink .ic{font-size:1.15rem;}
+.clink .lbl{font-family:'IBM Plex Mono',monospace;color:var(--muted);font-size:.66rem;text-transform:uppercase;display:block;letter-spacing:.05em;}
+.clink .val{font-weight:600;}
+.availability{display:flex;align-items:center;gap:.5rem;font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--good);margin-bottom:1.4rem;}
+.availability .dot{width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 8px var(--good);animation:blink 1.6s infinite;}
+.lang-block{margin-top:1.5rem;padding-top:1.4rem;border-top:1px dashed var(--border);}
+.lang-block h5{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;}
+
+footer{text-align:center;padding:2.2rem 1rem;color:var(--muted);font-size:.75rem;font-family:'IBM Plex Mono',monospace;border-top:1px solid var(--border);position:relative;z-index:1;}
+footer .hl{color:var(--accent);}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-vis{margin-top:2rem;}
+  .about-layout{grid-template-columns:1fr;}
+  .skills-wrap{grid-template-columns:1fr;}
+  .pgrid{grid-template-columns:1fr;}
+  .cgrid{grid-template-columns:1fr;}
+  .contact-wrap{grid-template-columns:1fr;}
+}
+@media(max-width:760px){
+  .nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:var(--nav-bg);flex-direction:column;padding:1.5rem;gap:1.2rem;border-bottom:1px solid var(--border);}
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ SPLASH ══ -->
+<div id="splash">
+  <svg id="splash-chip" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="14" y="14" width="36" height="36" rx="3" stroke="#e8a33d" stroke-width="3"/>
+    <rect x="24" y="24" width="16" height="16" rx="1.5" fill="#e8a33d"/>
+    <g stroke="#e8a33d" stroke-width="3" stroke-linecap="round">
+      <line x1="14" y1="22" x2="4" y2="22"/><line x1="14" y1="32" x2="4" y2="32"/><line x1="14" y1="42" x2="4" y2="42"/>
+      <line x1="50" y1="22" x2="60" y2="22"/><line x1="50" y1="32" x2="60" y2="32"/><line x1="50" y1="42" x2="60" y2="42"/>
+      <line x1="22" y1="14" x2="22" y2="4"/><line x1="32" y1="14" x2="32" y2="4"/><line x1="42" y1="14" x2="42" y2="4"/>
+      <line x1="22" y1="50" x2="22" y2="60"/><line x1="32" y1="50" x2="32" y2="60"/><line x1="42" y1="50" x2="42" y2="60"/>
+    </g>
+  </svg>
+  <div id="splash-name">ZEAD</div>
+</div>
+
+<!-- ══ LOADING ══ -->
+<div id="loadscr"><div class="lring"></div></div>
+
+<!-- ══ BACKGROUND CIRCUIT TRACES ══ -->
+<div id="bg-layer">
+  <svg id="circuit-bg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <path class="trace" d="M0 120 H300 V260 H620 V80 H1000 V300 H1440"/>
+    <path class="trace" d="M0 500 H220 V620 H540 V420 H900 V680 H1440"/>
+    <path class="trace" d="M120 0 V180 H420 V520 H240 V900"/>
+    <path class="trace" d="M1320 0 V220 H1080 V460 H1260 V900"/>
+    <path class="pulse" d="M0 120 H300 V260 H620 V80 H1000 V300 H1440"/>
+    <path class="pulse p2" d="M0 500 H220 V620 H540 V420 H900 V680 H1440"/>
+    <path class="pulse p3" d="M120 0 V180 H420 V520 H240 V900"/>
+    <circle class="pad" cx="300" cy="120" r="4"/><circle class="pad" cx="620" cy="260" r="4"/><circle class="pad" cx="1000" cy="80" r="4"/>
+    <circle class="pad" cx="220" cy="500" r="4"/><circle class="pad" cx="540" cy="620" r="4"/><circle class="pad" cx="900" cy="420" r="4"/>
+    <circle class="pad" cx="420" cy="180" r="4"/><circle class="pad" cx="240" cy="520" r="4"/>
+  </svg>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav id="mainNav">
+  <a href="#hero" class="nav-logo">
+    <svg width="20" height="20" viewBox="0 0 64 64" fill="none">
+      <rect x="14" y="14" width="36" height="36" rx="3" stroke="#e8a33d" stroke-width="4"/>
+      <rect x="26" y="26" width="12" height="12" fill="#e8a33d"/>
+    </svg>
+    ZR.ENG
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about"        data-en="About"    data-ar="عني">About</a></li>
+    <li><a href="#skills"       data-en="Skills"   data-ar="مهارات">Skills</a></li>
+    <li><a href="#experience"   data-en="Exp"      data-ar="خبرة">Exp</a></li>
+    <li><a href="#projects"     data-en="Projects" data-ar="مشاريع">Projects</a></li>
+    <li><a href="#certificates" data-en="Certs"    data-ar="شهادات">Certs</a></li>
+    <li><a href="#contact"      data-en="Contact"  data-ar="تواصل">Contact</a></li>
+    <li><button class="lang-btn" id="langBtn" onclick="toggleLang()">AR</button></li>
+  </ul>
+  <div class="hamburger" id="hbg" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text" id="heroTxt">
+      <p class="hero-greeting" data-en="Hi There, I'm" data-ar="مرحباً، أنا">Hi There, I'm</p>
+      <h1 class="hero-name">
+        <span>Zead Reda</span>
+        <span class="colored">Abdallah</span>
+      </h1>
+      <p class="hero-sub"><span data-en="I'm A" data-ar="أنا">I'm A</span> <strong data-en="Communication &amp; Electronics Engineer" data-ar="مهندس اتصالات وإلكترونيات">Communication &amp; Electronics Engineer</strong></p>
+      <div class="typing-row"><span id="typeTxt"></span><span class="t-cur">|</span></div>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-hire" data-en="HIRE ME" data-ar="وظفني">HIRE ME</a>
+        <a href="#" class="cv-link" data-en="Download CV" data-ar="تحميل السيرة">Download CV</a>
+      </div>
+      <div class="hero-stats">
+        <div class="sbox"><div class="snum" data-count="7">0</div><div class="slbl" data-en="Projects" data-ar="مشاريع">Projects</div></div>
+        <div class="sbox"><div class="snum" data-count="3">0</div><div class="slbl" data-en="Internships" data-ar="تدريبات">Internships</div></div>
+        <div class="sbox"><div class="snum" data-count="4">0</div><div class="slbl" data-en="Certs" data-ar="شهادات">Certs</div></div>
+      </div>
+    </div>
+    <div class="hero-vis" id="heroVis">
+      <div class="hero-circle"></div>
+      <div class="hero-photo-wrap">
+        <div class="hero-ring"></div>
+        <div class="hero-photo-inner">
+          <img id="profileImg" src="" alt="Zead Reda Abdallah">
+          <div id="profileEmoji">🛰️</div>
+        </div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-title" data-en="Datasheet — ZRA-01" data-ar="بطاقة تعريف — ZRA-01">Datasheet — ZRA-01</div>
+        <div class="spec-row"><span data-en="Package" data-ar="الموقع">Package</span><b>Cairo, EG</b></div>
+        <div class="spec-row"><span data-en="Focus" data-ar="التخصص">Focus</span><b data-en="IoT / Embedded" data-ar="IoT / أنظمة مدمجة">IoT / Embedded</b></div>
+        <div class="spec-row"><span data-en="Status" data-ar="الحالة">Status</span><b><span class="dot"></span><span data-en="Open to work" data-ar="متاح للعمل">Open to work</span></b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="rv d1"><p class="sec-tag"><span class="ref">U1</span> // <span data-en="About Me" data-ar="عني">About Me</span></p></div>
+  <div class="rv d1"><p class="sec-bg">ABOUT ME</p></div>
+  <div class="about-layout" style="margin-top:1rem;">
+    <div>
+      <h3 class="about-who rv-l d2" data-en="Who Is <span class='hl'>Zead Reda</span>?" data-ar="من هو <span class='hl'>زياد رضا</span>؟">Who Is <span class="hl">Zead Reda</span>?</h3>
+      <div class="about-body rv-l d3"
+        data-en="Enthusiastic and ambitious Communication and Electronics Engineer with hands-on experience in IoT, Networking, Embedded Systems, and Hardware Maintenance. Skilled in Python, C++, and microcontroller programming, with a solid background in network configuration, sensor integration, and automation. Passionate about combining software and hardware to build efficient, sustainable engineering solutions."
+        data-ar="مهندس اتصالات وإلكترونيات طموح لديه خبرة عملية في إنترنت الأشياء والشبكات والأنظمة المدمجة وصيانة الأجهزة. يتقن بايثون و C++ وبرمجة المتحكمات الدقيقة، مع خلفية قوية في إعداد الشبكات ودمج الحساسات والأتمتة. شغوف بدمج البرمجيات والأجهزة لبناء حلول هندسية فعالة ومستدامة.">
+        Enthusiastic and ambitious Communication and Electronics Engineer with hands-on experience in IoT, Networking, Embedded Systems, and Hardware Maintenance. Skilled in Python, C++, and microcontroller programming, with a solid background in network configuration, sensor integration, and automation. Passionate about combining software and hardware to build efficient, sustainable engineering solutions.
+      </div>
+      <div class="about-stats rv-l d3">
+        <div class="astat"><div class="astat-fill"></div><div class="astat-num">3+</div><div class="astat-lbl" data-en="Trainings" data-ar="تدريبات">Trainings</div></div>
+        <div class="astat"><div class="astat-fill"></div><div class="astat-num">7+</div><div class="astat-lbl" data-en="Projects" data-ar="مشاريع">Projects</div></div>
+        <div class="astat"><div class="astat-fill"></div><div class="astat-num">100%</div><div class="astat-lbl" data-en="Committed" data-ar="ملتزم">Committed</div></div>
+      </div>
+      <a href="#contact" class="btn-contact rv-l d4" data-en="CONTACT ME" data-ar="تواصل معي">CONTACT ME</a>
+    </div>
+    <div class="about-info rv-r d2">
+      <div class="ainfo-row"><span data-en="University" data-ar="الجامعة">University</span><span>Canadian International College (CIC)</span></div>
+      <div class="ainfo-row"><span data-en="Degree" data-ar="الدرجة">Degree</span><span data-en="B.Sc. Communication &amp; Electronics Eng." data-ar="بكالوريوس هندسة اتصالات وإلكترونيات">B.Sc. Communication &amp; Electronics Eng.</span></div>
+      <div class="ainfo-row"><span data-en="Location" data-ar="الموقع">Location</span><span>Cairo, Egypt</span></div>
+      <div class="ainfo-row"><span data-en="Email" data-ar="البريد">Email</span><span>zeadreda2004@gmail.com</span></div>
+      <div class="ainfo-row"><span data-en="Phone" data-ar="الهاتف">Phone</span><span>01023766616</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<section id="skills">
+  <div class="rv d1"><p class="sec-tag"><span class="ref">U2</span> // <span data-en="Skills" data-ar="مهارات">Skills</span></p></div>
+  <div class="rv d1"><p class="sec-bg">MY SKILLS</p></div>
+  <h2 class="sec-title rv d2" style="margin-top:.5rem;" data-en="Tools &amp; Disciplines I <span class='hl'>Work With</span>" data-ar="الأدوات والتخصصات التي <span class='hl'>أعمل بها</span>">Tools &amp; Disciplines I <span class="hl">Work With</span></h2>
+  <div class="skills-wrap rv d3">
+    <div class="skill-group">
+      <h4 data-en="Domain" data-ar="التخصص">Domain</h4>
+      <div class="skill-chips">
+        <span class="chip">Communication &amp; Electronics Eng.</span><span class="chip">IoT</span><span class="chip">Networking</span><span class="chip">Embedded Systems</span><span class="chip">Hardware Maintenance</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4 data-en="Technical" data-ar="تقني">Technical</h4>
+      <div class="skill-chips">
+        <span class="chip">Python</span><span class="chip">C++</span><span class="chip">MATLAB / Simulink</span><span class="chip">Arduino</span><span class="chip">ESP32</span><span class="chip">MQTT</span><span class="chip">Wokwi</span><span class="chip">CCNA Fundamentals</span><span class="chip">Cisco Packet Tracer</span><span class="chip">eNSP</span><span class="chip">Visual Studio</span><span class="chip">Sensor Integration</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4 data-en="Soft Skills" data-ar="مهارات شخصية">Soft Skills</h4>
+      <div class="skill-chips">
+        <span class="chip">Communication</span><span class="chip">Innovation</span><span class="chip">Continuous Learning</span><span class="chip">Problem-solving</span><span class="chip">Teamwork</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience">
+  <div class="rv d1"><p class="sec-tag"><span class="ref">U3</span> // <span data-en="Experience" data-ar="الخبرة">Experience</span></p></div>
+  <div class="rv d1"><p class="sec-bg">EXPERIENCE</p></div>
+  <h2 class="sec-title rv d2" style="margin-top:.5rem;"><span class="hl" data-en="My Journey" data-ar="رحلتي">My Journey</span></h2>
+  <div class="timeline rv d3">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-role" data-en="IT Operations Department" data-ar="قسم عمليات تقنية المعلومات">IT Operations Department</div>
+        <div class="tl-meta">National Steel Fabrication (NSF)</div>
+        <div class="tl-date" data-en="August 2025 – September 2025" data-ar="أغسطس 2025 – سبتمبر 2025">August 2025 – September 2025</div>
+        <ul class="tl-points">
+          <li data-en="Performed switch configuration and basic network setup for internal connectivity" data-ar="إعداد السويتشات والشبكة الداخلية">Performed switch configuration and basic network setup for internal connectivity</li>
+          <li data-en="Installed and terminated RG cables and handled network wiring" data-ar="تركيب وتوصيل كابلات الشبكة">Installed and terminated RG cables and handled network wiring</li>
+          <li data-en="Troubleshot hardware components of CPUs and laptops" data-ar="استكشاف أعطال أجهزة الكمبيوتر واللابتوب">Troubleshot hardware components of CPUs and laptops</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-role" data-en="Intern — IoT Applications" data-ar="متدرب — تطبيقات إنترنت الأشياء">Intern — IoT Applications</div>
+        <div class="tl-meta">NTI Egypt</div>
+        <div class="tl-date" data-en="July 2025 – August 2025" data-ar="يوليو 2025 – أغسطس 2025">July 2025 – August 2025</div>
+        <ul class="tl-points">
+          <li data-en="Completed a 120-hour summer internship (90 technical, 30 soft skills)" data-ar="تدريب صيفي 120 ساعة">Completed a 120-hour summer internship (90 technical, 30 soft skills)</li>
+          <li data-en="Worked on sensor integration, data acquisition, and application development" data-ar="دمج الحساسات وجمع البيانات">Worked on sensor integration, data acquisition, and application development</li>
+          <li data-en="Achieved a final score of 86%" data-ar="حصل على تقييم نهائي 86%">Achieved a final score of 86%</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-role" data-en="Cisco CCNAv7 Training (120 Hours)" data-ar="تدريب سيسكو CCNAv7 (120 ساعة)">Cisco CCNAv7 Training (120 Hours)</div>
+        <div class="tl-meta">NTI Egypt</div>
+        <div class="tl-date" data-en="2025" data-ar="2025">2025</div>
+        <ul class="tl-points">
+          <li data-en="Studied networking fundamentals, IP addressing, routing, switching, VLANs, and network security" data-ar="أساسيات الشبكات وعنونة IP والتوجيه">Studied networking fundamentals, IP addressing, routing, switching, VLANs, and network security</li>
+          <li data-en="Gained hands-on experience configuring and troubleshooting Cisco devices" data-ar="خبرة عملية في إعداد أجهزة سيسكو">Gained hands-on experience configuring and troubleshooting Cisco devices</li>
+          <li data-en="Achieved a final score of 100%" data-ar="حصل على تقييم نهائي 100%">Achieved a final score of 100%</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-role" data-en="Intern — CCNA Training Program" data-ar="متدرب — برنامج تدريب CCNA">Intern — CCNA Training Program</div>
+        <div class="tl-meta">Pixels Egypt</div>
+        <div class="tl-date" data-en="November 2024 – December 2024" data-ar="نوفمبر 2024 – ديسمبر 2024">November 2024 – December 2024</div>
+        <ul class="tl-points">
+          <li data-en="Networking fundamentals: OSI &amp; TCP/IP models, topologies" data-ar="أساسيات الشبكات: OSI و TCP/IP">Networking fundamentals: OSI &amp; TCP/IP models, topologies</li>
+          <li data-en="IP addressing &amp; subnetting (IPv4, IPv6, VLSM)" data-ar="عنونة IP والتقسيم الفرعي">IP addressing &amp; subnetting (IPv4, IPv6, VLSM)</li>
+          <li data-en="Routing &amp; switching (VLANs, STP, OSPF) and wireless network setup" data-ar="التوجيه والتحويل وإعداد الشبكات اللاسلكية">Routing &amp; switching (VLANs, STP, OSPF) and wireless network setup</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects">
+  <div class="rv d1"><p class="sec-tag"><span class="ref">U4</span> // <span data-en="Projects" data-ar="المشاريع">Projects</span></p></div>
+  <div class="rv d1"><p class="sec-bg">PROJECTS</p></div>
+  <h2 class="sec-title rv d2" style="margin-top:.5rem;" data-en="Featured <span class='hl'>Builds</span>" data-ar="<span class='hl'>مشاريعي</span> المميزة">Featured <span class="hl">Builds</span></h2>
+  <div class="pfilters rv d3" id="pfilters"></div>
+  <div class="pgrid rv d4" id="pgrid"></div>
+</section>
+
+<!-- ══ CERTS ══ -->
+<section id="certificates">
+  <div class="rv d1"><p class="sec-tag"><span class="ref">U5</span> // <span data-en="Certificates" data-ar="الشهادات">Certificates</span></p></div>
+  <div class="rv d1"><p class="sec-bg">CERTS</p></div>
+  <h2 class="sec-title rv d2" style="margin-top:.5rem;"><span class="hl" data-en="My Achievements" data-ar="إنجازاتي">My Achievements</span></h2>
+  <div class="cgrid rv d3">
+    <div class="ccard"><div class="cicon">🛰️</div><div><h5 data-en="IoT Development" data-ar="تطوير إنترنت الأشياء">IoT Development</h5><span>Udemy</span></div></div>
+    <div class="ccard"><div class="cicon">🐍</div><div><h5 data-en="Python Programming" data-ar="برمجة بايثون">Python Programming</h5><span>Sprints.ai · 2025</span></div></div>
+    <div class="ccard"><div class="cicon">🧠</div><div><h5 data-en="Getting Started with Deep Learning" data-ar="مقدمة في التعلم العميق">Getting Started with Deep Learning</h5><span>NVIDIA · 2025</span></div></div>
+    <div class="ccard"><div class="cicon">📡</div><div><h5 data-en="IoT Fundamentals &amp; Applications" data-ar="أساسيات وتطبيقات إنترنت الأشياء">IoT Fundamentals &amp; Applications</h5><span>Creativa Innovation Hub · 2025</span></div></div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="rv d1"><p class="sec-tag"><span class="ref">U6</span> // <span data-en="Contact" data-ar="تواصل">Contact</span></p></div>
+  <div class="rv d1"><p class="sec-bg">CONTACT</p></div>
+  <h2 class="sec-title rv d2" style="margin-top:.5rem;" data-en="Let's Build Something <span class='hl'>Together</span>" data-ar="لنصنع شيئاً <span class='hl'>معاً</span>">Let's Build Something <span class="hl">Together</span></h2>
+  <div class="contact-wrap rv d3">
+    <div class="contact-card">
+      <div class="availability"><span class="dot"></span><span data-en="Open to internships &amp; junior roles" data-ar="متاح للتدريب والوظائف المبتدئة">Open to internships &amp; junior roles</span></div>
+      <p data-en="Have a project in IoT, embedded systems, or networking? I'd love to hear about it — feel free to reach out through any channel below." data-ar="لديك مشروع في إنترنت الأشياء أو الأنظمة المدمجة أو الشبكات؟ يسعدني التواصل معك عبر أي من القنوات التالية.">Have a project in IoT, embedded systems, or networking? I'd love to hear about it — feel free to reach out through any channel below.</p>
+      <div class="lang-block">
+        <h5 data-en="Languages" data-ar="اللغات">Languages</h5>
+        <div class="skill-chips"><span class="chip" data-en="English" data-ar="الإنجليزية">English</span><span class="chip" data-en="Arabic" data-ar="العربية">Arabic</span></div>
+      </div>
+    </div>
+    <div class="clinks">
+      <a class="clink" href="mailto:zeadreda2004@gmail.com"><span class="ic">✉️</span><span><span class="lbl" data-en="Email" data-ar="البريد">Email</span><span class="val">zeadreda2004@gmail.com</span></span></a>
+      <a class="clink" href="tel:+201023766616"><span class="ic">📞</span><span><span class="lbl" data-en="Phone" data-ar="الهاتف">Phone</span><span class="val">01023766616</span></span></a>
+      <a class="clink" href="https://linkedin.com/in/zead-reda-46a63b375" target="_blank"><span class="ic">🔗</span><span><span class="lbl">LinkedIn</span><span class="val">/in/zead-reda-46a63b375</span></span></a>
+      <a class="clink" href="mailto:zeadreda2004@gmail.com"><span class="ic">📍</span><span><span class="lbl" data-en="Location" data-ar="الموقع">Location</span><span class="val">Cairo, Egypt</span></span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 <span class="hl">Zead Reda Abdallah</span> — <span data-en="Communication &amp; Electronics Engineer" data-ar="مهندس اتصالات وإلكترونيات">Communication &amp; Electronics Engineer</span>
+</footer>
+
+<script>
+// ══ SPLASH SEQUENCE ══
+const chip=document.getElementById("splash-chip"),sname=document.getElementById("splash-name"),splash=document.getElementById("splash");
+setTimeout(()=>{chip.classList.add("p1");sname.classList.add("p1");},50);
+setTimeout(()=>{chip.classList.remove("p1");chip.classList.add("p2");sname.classList.remove("p1");sname.classList.add("p2");},900);
+setTimeout(()=>{splash.classList.add("fadeout");},1750);
+setTimeout(()=>{splash.style.display="none";document.getElementById("mainNav").classList.add("show");document.getElementById("heroTxt").classList.add("on");document.getElementById("heroVis").classList.add("on");startCounters();},2300);
+
+// ══ TYPING EFFECT ══
+const roles={en:["IoT Developer","Embedded Systems Engineer","Network Engineer","Hardware Enthusiast"],ar:["مطور إنترنت الأشياء","مهندس أنظمة مدمجة","مهندس شبكات","شغوف بالأجهزة"]};
+let curLang="en",ri=0,ci=0,deleting=false;
+function typeLoop(){
+  const list=roles[curLang],word=list[ri%list.length],el=document.getElementById("typeTxt");
+  if(!deleting){ci++;if(ci>word.length){deleting=true;setTimeout(typeLoop,1200);return;}}
+  else{ci--;if(ci<0){deleting=false;ri++;ci=0;}}
+  el.textContent=word.slice(0,ci);
+  setTimeout(typeLoop,deleting?35:75);
+}
+typeLoop();
+
+// ══ COUNTERS ══
+function startCounters(){
+  document.querySelectorAll(".snum[data-count]").forEach(el=>{
+    const target=+el.dataset.count;let cur=0;
+    const step=()=>{cur+=Math.max(1,Math.ceil(target/24));if(cur>=target){el.textContent=target;return;}el.textContent=cur;requestAnimationFrame(()=>setTimeout(step,25));};
+    step();
+  });
+}
+
+// ══ NAV / MENU ══
+function toggleMenu(){document.getElementById("navLinks").classList.toggle("open");}
+document.querySelectorAll(".nav-links a").forEach(a=>a.addEventListener("click",()=>document.getElementById("navLinks").classList.remove("open")));
+window.addEventListener("scroll",()=>{
+  const secs=document.querySelectorAll("section");let cur="";
+  secs.forEach(s=>{if(scrollY>=s.offsetTop-140)cur=s.id;});
+  document.querySelectorAll(".nav-links a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+cur));
+});
+
+// ══ LANG TOGGLE ══
+function toggleLang(){
+  curLang=curLang==="en"?"ar":"en";
+  document.documentElement.lang=curLang;
+  document.documentElement.dir=curLang==="ar"?"rtl":"ltr";
+  document.querySelectorAll("[data-en]").forEach(el=>{
+    const v=curLang==="ar"?el.getAttribute("data-ar"):el.getAttribute("data-en");
+    if(v!==null)el.innerHTML=v;
+  });
+  document.getElementById("langBtn").textContent=curLang==="ar"?"EN":"AR";
+  ri=0;ci=0;deleting=false;
+}
+
+// ══ SCROLL REVEAL ══
+const rvEls=document.querySelectorAll(".rv,.rv-l,.rv-r");
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    const el=e.target;
+    if(e.isIntersecting){el.classList.remove("out-down","out-up");el.classList.add("in");}
+    else{el.classList.remove("in");el.classList.add(e.boundingClientRect.top<0?"out-up":"out-down");}
+  });
+},{threshold:.15});
+rvEls.forEach(el=>io.observe(el));
+
+const astatIo=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("go");});},{threshold:.4});
+document.querySelectorAll(".astat").forEach(el=>astatIo.observe(el));
+
+// ══ PROJECTS DATA ══
+const projects=[
+  {emoji:"🅿️",cat:"IoT",nameEn:"Car Parking Assistant System",nameAr:"نظام مساعد ركن السيارات",descEn:"IoT-based parking assistant using ultrasonic sensors to detect car positions and availability, with a real-time visualization dashboard for monitoring and alerts.",descAr:"نظام مساعد لركن السيارات يعتمد على حساسات الموجات فوق الصوتية مع لوحة تحكم للمراقبة الفورية.",tags:["Ultrasonic Sensors","IoT","Dashboard"]},
+  {emoji:"💡",cat:"IoT",nameEn:"Smart Energy Consumption with Auto Light Control",nameAr:"استهلاك طاقة ذكي مع تحكم إضاءة تلقائي",descEn:"Energy optimization system inspired by smart grid concepts, integrating sensors with Python-based data acquisition to automate lighting and reduce waste.",descAr:"نظام لتحسين استهلاك الطاقة مستوحى من الشبكات الذكية، يدمج الحساسات مع بايثون لأتمتة الإضاءة.",tags:["Python","Sensors","Automation"]},
+  {emoji:"🎮",cat:"Embedded",nameEn:"Gesture-Controlled Car",nameAr:"سيارة تُتحكم بالإيماءات",descEn:"A car integrating Arduino Nano, MPU6050, and Bluetooth HC-05 for wireless gesture-based control, translating hand gestures into vehicle movements.",descAr:"سيارة تدمج Arduino Nano و MPU6050 وبلوتوث HC-05 للتحكم اللاسلكي بالإيماءات.",tags:["Arduino Nano","MPU6050","Bluetooth"]},
+  {emoji:"⚖️",cat:"Control",nameEn:"Self-Balancing System",nameAr:"نظام موازنة ذاتية",descEn:"Real-time self-balancing system using Arduino, MPU6050, and PID control, applying control theory to maintain stability like a robotic balance mechanism.",descAr:"نظام موازنة ذاتية في الوقت الحقيقي باستخدام Arduino و MPU6050 وتحكم PID.",tags:["Arduino","PID Control","MPU6050"]},
+  {emoji:"🔆",cat:"IoT",nameEn:"ESP32 Smart LED Control via MQTT",nameAr:"تحكم إضاءة ذكي بـ ESP32 عبر MQTT",descEn:"ESP32 + MQTT system for LED control and monitoring, with a PC-based Python client to publish commands, set temperature thresholds, and automate relay control.",descAr:"نظام ESP32 و MQTT للتحكم بالإضاءة ومراقبتها مع عميل بايثون لإصدار الأوامر وأتمتة التحكم.",tags:["ESP32","MQTT","Python"]},
+  {emoji:"🌡️",cat:"IoT",nameEn:"IoT Temperature Monitoring & Control",nameAr:"مراقبة وتحكم بالحرارة عبر إنترنت الأشياء",descEn:"Temperature monitoring system using Arduino, Wi-Fi module and an online dashboard, with threshold alarms and remote LED control.",descAr:"نظام مراقبة حرارة باستخدام Arduino ووحدة واي فاي ولوحة تحكم أونلاين مع تنبيهات وتحكم عن بعد.",tags:["Arduino","Wi-Fi","Dashboard"]},
+  {emoji:"🏋️",cat:"Mobile",nameEn:"Fitness App — Flutter",nameAr:"تطبيق لياقة — Flutter",descEn:"Flutter fitness app with REST API integration, Firebase Authentication, Hive for offline persistence, and Cubit (flutter_bloc) state management.",descAr:"تطبيق لياقة بـ Flutter مع REST API ومصادقة Firebase وتخزين Hive وإدارة حالة بـ Cubit.",tags:["Flutter","Firebase","Cubit"]},
+];
+const cats=["All",...new Set(projects.map(p=>p.cat))];
+const pf=document.getElementById("pfilters"),pg=document.getElementById("pgrid");
+pf.innerHTML=cats.map((c,i)=>`<button class="pf-btn${i===0?' on':''}" data-cat="${c}" onclick="filterProj('${c}',this)">${c}</button>`).join("");
+pg.innerHTML=projects.map(p=>`
+  <div class="pcard" data-cat="${p.cat}">
+    <div class="pcard-top"><span class="pcard-emoji">${p.emoji}</span><span class="pcard-cat">${p.cat}</span></div>
+    <h4 data-en="${p.nameEn}" data-ar="${p.nameAr}">${p.nameEn}</h4>
+    <p data-en="${p.descEn}" data-ar="${p.descAr}">${p.descEn}</p>
+    <div class="pcard-tags">${p.tags.map(t=>`<span class="ptag">${t}</span>`).join("")}</div>
+  </div>`).join("");
+function filterProj(cat,btn){
+  document.querySelectorAll(".pf-btn").forEach(b=>b.classList.remove("on"));btn.classList.add("on");
+  document.querySelectorAll(".pcard").forEach(c=>c.classList.toggle("hide",cat!=="All"&&c.dataset.cat!==cat));
+}
+</script>
+</body>
+</html>
