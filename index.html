@@ -12,7 +12,7 @@
   --bg:#0a120d;--bg2:#0d1a13;--card:#101d16;
   --border:#24392d;--text:#e8f2ea;--muted:#7c9686;
   --accent:#e8a33d;--accent2:#ffc766;--accent3:#c97f22;
-  --trace:#25402f;--good:#6fd68a;
+  --trace:#25402f;--good:#6fd68a;--bad:#e86a5c;
   --glow:rgba(232,163,61,.22);--glow2:rgba(232,163,61,.09);
   --nav-bg:rgba(10,18,13,.92);
 }
@@ -38,7 +38,7 @@ h1,h2,h3,.mono{font-family:'IBM Plex Mono',monospace;}
 @keyframes sFade{to{opacity:0;pointer-events:none;}}
 
 /* ══ LOADSCR ══ */
-#loadscr{position:fixed;inset:0;background:var(--bg);z-index:9998;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
+#loadscr{position:fixed;inset:0;background:var(--bg);z-index:9998;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
 .lring{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
@@ -139,8 +139,7 @@ section{position:relative;z-index:1;padding:clamp(5rem,10vw,8rem) clamp(1.5rem,6
 .about-body{color:var(--muted);line-height:1.85;font-size:.94rem;margin-bottom:1.7rem;}
 .about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1.6rem;}
 .astat{background:var(--card);border:1px solid rgba(232,163,61,.14);border-radius:8px;padding:.85rem .5rem;text-align:center;transition:all .4s;position:relative;overflow:hidden;}
-.astat-fill{position:absolute;bottom:0;left:0;right:0;height:0;background:linear-gradient(to top,rgba(232,163,61,.1),transparent);transition:height .8s ease;}
-.astat.go .astat-fill{height:100%;}
+.astat-fill{position:absolute;bottom:0;left:0;right:0;height:100%;background:linear-gradient(to top,rgba(232,163,61,.1),transparent);}
 .astat-num{position:relative;font-size:1.3rem;font-weight:700;color:var(--accent);font-family:'IBM Plex Mono',monospace;}
 .astat-lbl{position:relative;font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px;font-family:'IBM Plex Mono',monospace;}
 .btn-contact{display:inline-block;border:1.5px solid var(--accent);color:var(--accent);text-decoration:none;padding:11px 26px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:.8rem;letter-spacing:.05em;transition:all .3s;}
@@ -234,6 +233,54 @@ footer .hl{color:var(--accent);}
   .nav-links.open{display:flex;}
   .hamburger{display:flex;}
 }
+
+/* ══ ADMIN ══ */
+#afab{position:fixed;bottom:22px;right:22px;z-index:900;width:48px;height:48px;border-radius:50%;background:var(--card);border:1.5px solid var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.2rem;transition:all .25s;}
+#afab:hover{border-color:var(--accent);color:var(--accent);transform:rotate(45deg);}
+[dir="rtl"] #afab{right:auto;left:22px;}
+.ov{position:fixed;inset:0;background:rgba(5,10,7,.75);backdrop-filter:blur(4px);z-index:9500;display:none;align-items:center;justify-content:center;padding:1.2rem;}
+.ov.show{display:flex;}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:14px;width:100%;max-width:760px;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;}
+.mhdr{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;border-bottom:1px solid var(--border);}
+.mhdr h3{font-size:1rem;font-family:'IBM Plex Mono',monospace;color:var(--accent);}
+.mhdr .x{cursor:pointer;color:var(--muted);font-size:1.3rem;line-height:1;background:none;border:none;}
+.mhdr .x:hover{color:var(--bad);}
+.mbody{overflow-y:auto;padding:1.4rem;}
+.login-box{padding:2rem;text-align:center;}
+.login-box p{color:var(--muted);font-size:.82rem;margin-bottom:1.2rem;}
+.fi{width:100%;background:var(--card);border:1px solid var(--border);border-radius:7px;padding:10px 13px;color:var(--text);font-size:.86rem;margin-bottom:.7rem;font-family:'IBM Plex Sans',sans-serif;}
+.fi:focus{outline:none;border-color:var(--accent);}
+textarea.fi{resize:vertical;min-height:70px;}
+.abtn{background:var(--accent);color:#0a120d;border:none;border-radius:7px;padding:10px 20px;font-weight:700;font-size:.84rem;cursor:pointer;font-family:'IBM Plex Mono',monospace;transition:all .2s;}
+.abtn:hover{background:var(--accent2);}
+.abtn.sec{background:transparent;border:1px solid var(--border);color:var(--muted);}
+.abtn.sec:hover{border-color:var(--accent);color:var(--accent);}
+.abtn.danger{background:var(--bad);color:#fff;}
+.amsg{font-size:.78rem;margin-top:.5rem;min-height:1.1rem;}
+.amsg.ok{color:var(--good);}
+.amsg.err{color:var(--bad);}
+.atabs{display:flex;gap:.4rem;flex-wrap:wrap;padding:0 1.4rem;border-bottom:1px solid var(--border);}
+.atab{background:none;border:none;color:var(--muted);padding:.7rem .6rem;font-size:.72rem;cursor:pointer;font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;border-bottom:2px solid transparent;text-transform:uppercase;}
+.atab.on{color:var(--accent);border-bottom-color:var(--accent);}
+.asec{display:none;}
+.asec.on{display:block;}
+.fg{margin-bottom:.9rem;}
+.fg label{display:block;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem;font-family:'IBM Plex Mono',monospace;}
+.f2g{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+.mitem{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.9rem 1rem;margin-bottom:.7rem;}
+.mitem-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;}
+.mitem-hdr b{font-size:.86rem;}
+.mitem-actions{display:flex;gap:.4rem;}
+.ibtn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:5px;padding:3px 9px;font-size:.7rem;cursor:pointer;}
+.ibtn:hover{border-color:var(--accent);color:var(--accent);}
+.ibtn.del:hover{border-color:var(--bad);color:var(--bad);}
+.chipedit{display:inline-flex;align-items:center;gap:5px;background:rgba(232,163,61,.07);border:1px solid rgba(232,163,61,.2);border-radius:5px;padding:3px 4px 3px 10px;font-size:.76rem;margin:2px;font-family:'IBM Plex Mono',monospace;}
+.chipedit button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.9rem;padding:0 4px;}
+.chipedit button:hover{color:var(--bad);}
+.hint{font-size:.68rem;color:var(--muted);margin-top:-.3rem;margin-bottom:.6rem;}
+.photo-preview{width:110px;height:110px;border-radius:10px;object-fit:cover;background:var(--card);border:1px solid var(--border);margin-bottom:.8rem;}
+#svi{position:fixed;top:14px;right:14px;z-index:9999;background:var(--card);border:1px solid var(--accent);color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:.74rem;padding:8px 14px;border-radius:7px;display:none;}
+[dir="rtl"] #svi{right:auto;left:14px;}
 </style>
 </head>
 <body>
@@ -299,19 +346,19 @@ footer .hl{color:var(--accent);}
     <div class="hero-text" id="heroTxt">
       <p class="hero-greeting" data-en="Hi There, I'm" data-ar="مرحباً، أنا">Hi There, I'm</p>
       <h1 class="hero-name">
-        <span>Zead Reda</span>
-        <span class="colored">Abdallah</span>
+        <span id="hFname">Zead Reda</span>
+        <span class="colored" id="hLname">Abdallah</span>
       </h1>
-      <p class="hero-sub"><span data-en="I'm A" data-ar="أنا">I'm A</span> <strong data-en="Communication &amp; Electronics Engineer" data-ar="مهندس اتصالات وإلكترونيات">Communication &amp; Electronics Engineer</strong></p>
+      <p class="hero-sub"><span data-en="I'm A" data-ar="أنا">I'm A</span> <strong id="hTitle">Communication &amp; Electronics Engineer</strong></p>
       <div class="typing-row"><span id="typeTxt"></span><span class="t-cur">|</span></div>
       <div class="hero-cta">
         <a href="#contact" class="btn-hire" data-en="HIRE ME" data-ar="وظفني">HIRE ME</a>
-        <a href="#" class="cv-link" data-en="Download CV" data-ar="تحميل السيرة">Download CV</a>
+        <a href="#" id="cvLink" class="cv-link" data-en="Download CV" data-ar="تحميل السيرة">Download CV</a>
       </div>
       <div class="hero-stats">
-        <div class="sbox"><div class="snum" data-count="7">0</div><div class="slbl" data-en="Projects" data-ar="مشاريع">Projects</div></div>
-        <div class="sbox"><div class="snum" data-count="3">0</div><div class="slbl" data-en="Internships" data-ar="تدريبات">Internships</div></div>
-        <div class="sbox"><div class="snum" data-count="4">0</div><div class="slbl" data-en="Certs" data-ar="شهادات">Certs</div></div>
+        <div class="sbox"><div class="snum" id="sProjects">0</div><div class="slbl" data-en="Projects" data-ar="مشاريع">Projects</div></div>
+        <div class="sbox"><div class="snum" id="sExp">0</div><div class="slbl" data-en="Internships" data-ar="تدريبات">Internships</div></div>
+        <div class="sbox"><div class="snum" id="sCerts">0</div><div class="slbl" data-en="Certs" data-ar="شهادات">Certs</div></div>
       </div>
     </div>
     <div class="hero-vis" id="heroVis">
@@ -325,7 +372,7 @@ footer .hl{color:var(--accent);}
       </div>
       <div class="spec-card">
         <div class="spec-title" data-en="Datasheet — ZRA-01" data-ar="بطاقة تعريف — ZRA-01">Datasheet — ZRA-01</div>
-        <div class="spec-row"><span data-en="Package" data-ar="الموقع">Package</span><b>Cairo, EG</b></div>
+        <div class="spec-row"><span data-en="Package" data-ar="الموقع">Package</span><b id="specLoc">Cairo, EG</b></div>
         <div class="spec-row"><span data-en="Focus" data-ar="التخصص">Focus</span><b data-en="IoT / Embedded" data-ar="IoT / أنظمة مدمجة">IoT / Embedded</b></div>
         <div class="spec-row"><span data-en="Status" data-ar="الحالة">Status</span><b><span class="dot"></span><span data-en="Open to work" data-ar="متاح للعمل">Open to work</span></b></div>
       </div>
@@ -339,26 +386,16 @@ footer .hl{color:var(--accent);}
   <div class="rv d1"><p class="sec-bg">ABOUT ME</p></div>
   <div class="about-layout" style="margin-top:1rem;">
     <div>
-      <h3 class="about-who rv-l d2" data-en="Who Is <span class='hl'>Zead Reda</span>?" data-ar="من هو <span class='hl'>زياد رضا</span>؟">Who Is <span class="hl">Zead Reda</span>?</h3>
-      <div class="about-body rv-l d3"
-        data-en="Enthusiastic and ambitious Communication and Electronics Engineer with hands-on experience in IoT, Networking, Embedded Systems, and Hardware Maintenance. Skilled in Python, C++, and microcontroller programming, with a solid background in network configuration, sensor integration, and automation. Passionate about combining software and hardware to build efficient, sustainable engineering solutions."
-        data-ar="مهندس اتصالات وإلكترونيات طموح لديه خبرة عملية في إنترنت الأشياء والشبكات والأنظمة المدمجة وصيانة الأجهزة. يتقن بايثون و C++ وبرمجة المتحكمات الدقيقة، مع خلفية قوية في إعداد الشبكات ودمج الحساسات والأتمتة. شغوف بدمج البرمجيات والأجهزة لبناء حلول هندسية فعالة ومستدامة.">
-        Enthusiastic and ambitious Communication and Electronics Engineer with hands-on experience in IoT, Networking, Embedded Systems, and Hardware Maintenance. Skilled in Python, C++, and microcontroller programming, with a solid background in network configuration, sensor integration, and automation. Passionate about combining software and hardware to build efficient, sustainable engineering solutions.
-      </div>
+      <h3 class="about-who rv-l d2">Who Is <span class="hl" id="aboutName">Zead Reda</span>?</h3>
+      <div class="about-body rv-l d3" id="aboutBio"></div>
       <div class="about-stats rv-l d3">
-        <div class="astat"><div class="astat-fill"></div><div class="astat-num">3+</div><div class="astat-lbl" data-en="Trainings" data-ar="تدريبات">Trainings</div></div>
-        <div class="astat"><div class="astat-fill"></div><div class="astat-num">7+</div><div class="astat-lbl" data-en="Projects" data-ar="مشاريع">Projects</div></div>
+        <div class="astat"><div class="astat-fill"></div><div class="astat-num" id="aTrain">3+</div><div class="astat-lbl" data-en="Trainings" data-ar="تدريبات">Trainings</div></div>
+        <div class="astat"><div class="astat-fill"></div><div class="astat-num" id="aProj">7+</div><div class="astat-lbl" data-en="Projects" data-ar="مشاريع">Projects</div></div>
         <div class="astat"><div class="astat-fill"></div><div class="astat-num">100%</div><div class="astat-lbl" data-en="Committed" data-ar="ملتزم">Committed</div></div>
       </div>
       <a href="#contact" class="btn-contact rv-l d4" data-en="CONTACT ME" data-ar="تواصل معي">CONTACT ME</a>
     </div>
-    <div class="about-info rv-r d2">
-      <div class="ainfo-row"><span data-en="University" data-ar="الجامعة">University</span><span>Canadian International College (CIC)</span></div>
-      <div class="ainfo-row"><span data-en="Degree" data-ar="الدرجة">Degree</span><span data-en="B.Sc. Communication &amp; Electronics Eng." data-ar="بكالوريوس هندسة اتصالات وإلكترونيات">B.Sc. Communication &amp; Electronics Eng.</span></div>
-      <div class="ainfo-row"><span data-en="Location" data-ar="الموقع">Location</span><span>Cairo, Egypt</span></div>
-      <div class="ainfo-row"><span data-en="Email" data-ar="البريد">Email</span><span>zeadreda2004@gmail.com</span></div>
-      <div class="ainfo-row"><span data-en="Phone" data-ar="الهاتف">Phone</span><span>01023766616</span></div>
-    </div>
+    <div class="about-info rv-r d2" id="aboutInfo"></div>
   </div>
 </section>
 
@@ -367,26 +404,7 @@ footer .hl{color:var(--accent);}
   <div class="rv d1"><p class="sec-tag"><span class="ref">U2</span> // <span data-en="Skills" data-ar="مهارات">Skills</span></p></div>
   <div class="rv d1"><p class="sec-bg">MY SKILLS</p></div>
   <h2 class="sec-title rv d2" style="margin-top:.5rem;" data-en="Tools &amp; Disciplines I <span class='hl'>Work With</span>" data-ar="الأدوات والتخصصات التي <span class='hl'>أعمل بها</span>">Tools &amp; Disciplines I <span class="hl">Work With</span></h2>
-  <div class="skills-wrap rv d3">
-    <div class="skill-group">
-      <h4 data-en="Domain" data-ar="التخصص">Domain</h4>
-      <div class="skill-chips">
-        <span class="chip">Communication &amp; Electronics Eng.</span><span class="chip">IoT</span><span class="chip">Networking</span><span class="chip">Embedded Systems</span><span class="chip">Hardware Maintenance</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <h4 data-en="Technical" data-ar="تقني">Technical</h4>
-      <div class="skill-chips">
-        <span class="chip">Python</span><span class="chip">C++</span><span class="chip">MATLAB / Simulink</span><span class="chip">Arduino</span><span class="chip">ESP32</span><span class="chip">MQTT</span><span class="chip">Wokwi</span><span class="chip">CCNA Fundamentals</span><span class="chip">Cisco Packet Tracer</span><span class="chip">eNSP</span><span class="chip">Visual Studio</span><span class="chip">Sensor Integration</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <h4 data-en="Soft Skills" data-ar="مهارات شخصية">Soft Skills</h4>
-      <div class="skill-chips">
-        <span class="chip">Communication</span><span class="chip">Innovation</span><span class="chip">Continuous Learning</span><span class="chip">Problem-solving</span><span class="chip">Teamwork</span>
-      </div>
-    </div>
-  </div>
+  <div class="skills-wrap rv d3" id="skillsWrap"></div>
 </section>
 
 <!-- ══ EXPERIENCE ══ -->
@@ -394,60 +412,7 @@ footer .hl{color:var(--accent);}
   <div class="rv d1"><p class="sec-tag"><span class="ref">U3</span> // <span data-en="Experience" data-ar="الخبرة">Experience</span></p></div>
   <div class="rv d1"><p class="sec-bg">EXPERIENCE</p></div>
   <h2 class="sec-title rv d2" style="margin-top:.5rem;"><span class="hl" data-en="My Journey" data-ar="رحلتي">My Journey</span></h2>
-  <div class="timeline rv d3">
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-role" data-en="IT Operations Department" data-ar="قسم عمليات تقنية المعلومات">IT Operations Department</div>
-        <div class="tl-meta">National Steel Fabrication (NSF)</div>
-        <div class="tl-date" data-en="August 2025 – September 2025" data-ar="أغسطس 2025 – سبتمبر 2025">August 2025 – September 2025</div>
-        <ul class="tl-points">
-          <li data-en="Performed switch configuration and basic network setup for internal connectivity" data-ar="إعداد السويتشات والشبكة الداخلية">Performed switch configuration and basic network setup for internal connectivity</li>
-          <li data-en="Installed and terminated RG cables and handled network wiring" data-ar="تركيب وتوصيل كابلات الشبكة">Installed and terminated RG cables and handled network wiring</li>
-          <li data-en="Troubleshot hardware components of CPUs and laptops" data-ar="استكشاف أعطال أجهزة الكمبيوتر واللابتوب">Troubleshot hardware components of CPUs and laptops</li>
-        </ul>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-role" data-en="Intern — IoT Applications" data-ar="متدرب — تطبيقات إنترنت الأشياء">Intern — IoT Applications</div>
-        <div class="tl-meta">NTI Egypt</div>
-        <div class="tl-date" data-en="July 2025 – August 2025" data-ar="يوليو 2025 – أغسطس 2025">July 2025 – August 2025</div>
-        <ul class="tl-points">
-          <li data-en="Completed a 120-hour summer internship (90 technical, 30 soft skills)" data-ar="تدريب صيفي 120 ساعة">Completed a 120-hour summer internship (90 technical, 30 soft skills)</li>
-          <li data-en="Worked on sensor integration, data acquisition, and application development" data-ar="دمج الحساسات وجمع البيانات">Worked on sensor integration, data acquisition, and application development</li>
-          <li data-en="Achieved a final score of 86%" data-ar="حصل على تقييم نهائي 86%">Achieved a final score of 86%</li>
-        </ul>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-role" data-en="Cisco CCNAv7 Training (120 Hours)" data-ar="تدريب سيسكو CCNAv7 (120 ساعة)">Cisco CCNAv7 Training (120 Hours)</div>
-        <div class="tl-meta">NTI Egypt</div>
-        <div class="tl-date" data-en="2025" data-ar="2025">2025</div>
-        <ul class="tl-points">
-          <li data-en="Studied networking fundamentals, IP addressing, routing, switching, VLANs, and network security" data-ar="أساسيات الشبكات وعنونة IP والتوجيه">Studied networking fundamentals, IP addressing, routing, switching, VLANs, and network security</li>
-          <li data-en="Gained hands-on experience configuring and troubleshooting Cisco devices" data-ar="خبرة عملية في إعداد أجهزة سيسكو">Gained hands-on experience configuring and troubleshooting Cisco devices</li>
-          <li data-en="Achieved a final score of 100%" data-ar="حصل على تقييم نهائي 100%">Achieved a final score of 100%</li>
-        </ul>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-role" data-en="Intern — CCNA Training Program" data-ar="متدرب — برنامج تدريب CCNA">Intern — CCNA Training Program</div>
-        <div class="tl-meta">Pixels Egypt</div>
-        <div class="tl-date" data-en="November 2024 – December 2024" data-ar="نوفمبر 2024 – ديسمبر 2024">November 2024 – December 2024</div>
-        <ul class="tl-points">
-          <li data-en="Networking fundamentals: OSI &amp; TCP/IP models, topologies" data-ar="أساسيات الشبكات: OSI و TCP/IP">Networking fundamentals: OSI &amp; TCP/IP models, topologies</li>
-          <li data-en="IP addressing &amp; subnetting (IPv4, IPv6, VLSM)" data-ar="عنونة IP والتقسيم الفرعي">IP addressing &amp; subnetting (IPv4, IPv6, VLSM)</li>
-          <li data-en="Routing &amp; switching (VLANs, STP, OSPF) and wireless network setup" data-ar="التوجيه والتحويل وإعداد الشبكات اللاسلكية">Routing &amp; switching (VLANs, STP, OSPF) and wireless network setup</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <div class="timeline rv d3" id="expTimeline"></div>
 </section>
 
 <!-- ══ PROJECTS ══ -->
@@ -464,12 +429,7 @@ footer .hl{color:var(--accent);}
   <div class="rv d1"><p class="sec-tag"><span class="ref">U5</span> // <span data-en="Certificates" data-ar="الشهادات">Certificates</span></p></div>
   <div class="rv d1"><p class="sec-bg">CERTS</p></div>
   <h2 class="sec-title rv d2" style="margin-top:.5rem;"><span class="hl" data-en="My Achievements" data-ar="إنجازاتي">My Achievements</span></h2>
-  <div class="cgrid rv d3">
-    <div class="ccard"><div class="cicon">🛰️</div><div><h5 data-en="IoT Development" data-ar="تطوير إنترنت الأشياء">IoT Development</h5><span>Udemy</span></div></div>
-    <div class="ccard"><div class="cicon">🐍</div><div><h5 data-en="Python Programming" data-ar="برمجة بايثون">Python Programming</h5><span>Sprints.ai · 2025</span></div></div>
-    <div class="ccard"><div class="cicon">🧠</div><div><h5 data-en="Getting Started with Deep Learning" data-ar="مقدمة في التعلم العميق">Getting Started with Deep Learning</h5><span>NVIDIA · 2025</span></div></div>
-    <div class="ccard"><div class="cicon">📡</div><div><h5 data-en="IoT Fundamentals &amp; Applications" data-ar="أساسيات وتطبيقات إنترنت الأشياء">IoT Fundamentals &amp; Applications</h5><span>Creativa Innovation Hub · 2025</span></div></div>
-  </div>
+  <div class="cgrid rv d3" id="certsGrid"></div>
 </section>
 
 <!-- ══ CONTACT ══ -->
@@ -479,114 +439,621 @@ footer .hl{color:var(--accent);}
   <h2 class="sec-title rv d2" style="margin-top:.5rem;" data-en="Let's Build Something <span class='hl'>Together</span>" data-ar="لنصنع شيئاً <span class='hl'>معاً</span>">Let's Build Something <span class="hl">Together</span></h2>
   <div class="contact-wrap rv d3">
     <div class="contact-card">
-      <div class="availability"><span class="dot"></span><span data-en="Open to internships &amp; junior roles" data-ar="متاح للتدريب والوظائف المبتدئة">Open to internships &amp; junior roles</span></div>
-      <p data-en="Have a project in IoT, embedded systems, or networking? I'd love to hear about it — feel free to reach out through any channel below." data-ar="لديك مشروع في إنترنت الأشياء أو الأنظمة المدمجة أو الشبكات؟ يسعدني التواصل معك عبر أي من القنوات التالية.">Have a project in IoT, embedded systems, or networking? I'd love to hear about it — feel free to reach out through any channel below.</p>
+      <div class="availability"><span class="dot"></span><span id="availTxt">Open to internships &amp; junior roles</span></div>
+      <p id="blurbTxt"></p>
       <div class="lang-block">
         <h5 data-en="Languages" data-ar="اللغات">Languages</h5>
         <div class="skill-chips"><span class="chip" data-en="English" data-ar="الإنجليزية">English</span><span class="chip" data-en="Arabic" data-ar="العربية">Arabic</span></div>
       </div>
     </div>
-    <div class="clinks">
-      <a class="clink" href="mailto:zeadreda2004@gmail.com"><span class="ic">✉️</span><span><span class="lbl" data-en="Email" data-ar="البريد">Email</span><span class="val">zeadreda2004@gmail.com</span></span></a>
-      <a class="clink" href="tel:+201023766616"><span class="ic">📞</span><span><span class="lbl" data-en="Phone" data-ar="الهاتف">Phone</span><span class="val">01023766616</span></span></a>
-      <a class="clink" href="https://linkedin.com/in/zead-reda-46a63b375" target="_blank"><span class="ic">🔗</span><span><span class="lbl">LinkedIn</span><span class="val">/in/zead-reda-46a63b375</span></span></a>
-      <a class="clink" href="mailto:zeadreda2004@gmail.com"><span class="ic">📍</span><span><span class="lbl" data-en="Location" data-ar="الموقع">Location</span><span class="val">Cairo, Egypt</span></span></a>
-    </div>
+    <div class="clinks" id="clinksWrap"></div>
   </div>
 </section>
 
 <footer>
-  © 2026 <span class="hl">Zead Reda Abdallah</span> — <span data-en="Communication &amp; Electronics Engineer" data-ar="مهندس اتصالات وإلكترونيات">Communication &amp; Electronics Engineer</span>
+  © 2026 <span class="hl" id="footName">Zead Reda Abdallah</span> — <span data-en="Communication &amp; Electronics Engineer" data-ar="مهندس اتصالات وإلكترونيات">Communication &amp; Electronics Engineer</span>
 </footer>
 
+<!-- ══ ADMIN FAB ══ -->
+<div id="afab" title="Admin">⚙</div>
+<div id="svi">💾 Saving…</div>
+
+<!-- ══ ADMIN MODAL ══ -->
+<div class="ov" id="adminOv">
+  <div class="modal">
+    <div class="mhdr"><h3>ZR.ENG — ADMIN</h3><button class="x" onclick="closeAdmin()">✕</button></div>
+
+    <!-- LOGIN -->
+    <div id="loginBox" class="login-box">
+      <p>Sign in with the admin account to edit the site.</p>
+      <input type="email" id="aEmail" class="fi" placeholder="Email" autocomplete="username">
+      <input type="password" id="aPass" class="fi" placeholder="Password" autocomplete="current-password">
+      <button class="abtn" onclick="doLogin()" style="width:100%;">LOGIN</button>
+      <div class="amsg" id="lMsg"></div>
+    </div>
+
+    <!-- PANEL -->
+    <div id="aPanel" style="display:none;">
+      <div class="atabs">
+        <button class="atab on" data-t="hero" onclick="aTab('hero')">Hero</button>
+        <button class="atab" data-t="about" onclick="aTab('about')">About</button>
+        <button class="atab" data-t="skills" onclick="aTab('skills')">Skills</button>
+        <button class="atab" data-t="exp" onclick="aTab('exp')">Experience</button>
+        <button class="atab" data-t="proj" onclick="aTab('proj')">Projects</button>
+        <button class="atab" data-t="cert" onclick="aTab('cert')">Certs</button>
+        <button class="atab" data-t="contact" onclick="aTab('contact')">Contact</button>
+        <button class="atab" data-t="photo" onclick="aTab('photo')">Photo</button>
+      </div>
+      <div class="mbody">
+
+        <!-- HERO -->
+        <div class="asec on" id="sec-hero">
+          <div class="f2g"><div class="fg"><label>First name</label><input class="fi" id="fHFname"></div><div class="fg"><label>Last name</label><input class="fi" id="fHLname"></div></div>
+          <div class="fg"><label>Title (EN)</label><input class="fi" id="fHTitleEn"></div>
+          <div class="fg"><label>Title (AR)</label><input class="fi" id="fHTitleAr" dir="rtl"></div>
+          <div class="fg"><label>Typing roles — EN (comma separated)</label><input class="fi" id="fHRolesEn"></div>
+          <div class="fg"><label>Typing roles — AR (comma separated)</label><input class="fi" id="fHRolesAr" dir="rtl"></div>
+          <div class="fg"><label>CV link (URL)</label><input class="fi" id="fHCv"></div>
+          <button class="abtn" onclick="saveHero()">SAVE</button>
+          <div class="amsg" id="mHero"></div>
+        </div>
+
+        <!-- ABOUT -->
+        <div class="asec" id="sec-about">
+          <div class="fg"><label>Bio (EN)</label><textarea class="fi" id="fABioEn"></textarea></div>
+          <div class="fg"><label>Bio (AR)</label><textarea class="fi" id="fABioAr" dir="rtl"></textarea></div>
+          <div class="fg"><label>University</label><input class="fi" id="fAUni"></div>
+          <div class="f2g"><div class="fg"><label>Degree (EN)</label><input class="fi" id="fADegEn"></div><div class="fg"><label>Degree (AR)</label><input class="fi" id="fADegAr" dir="rtl"></div></div>
+          <div class="f2g"><div class="fg"><label>Location</label><input class="fi" id="fALoc"></div><div class="fg"><label>Trainings count</label><input class="fi" type="number" id="fATrain"></div></div>
+          <div class="f2g"><div class="fg"><label>Email</label><input class="fi" id="fAEmail"></div><div class="fg"><label>Phone</label><input class="fi" id="fAPhone"></div></div>
+          <button class="abtn" onclick="saveAbout()">SAVE</button>
+          <div class="amsg" id="mAbout"></div>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="asec" id="sec-skills">
+          <div class="fg"><label>Domain</label><div id="chipsDomain"></div><div style="display:flex;gap:.5rem;"><input class="fi" id="newDomain" placeholder="Add skill…" style="margin-bottom:0;"><button class="abtn" onclick="addSkill('domain')">＋</button></div></div>
+          <div class="fg" style="margin-top:1rem;"><label>Technical</label><div id="chipsTechnical"></div><div style="display:flex;gap:.5rem;"><input class="fi" id="newTechnical" placeholder="Add skill…" style="margin-bottom:0;"><button class="abtn" onclick="addSkill('technical')">＋</button></div></div>
+          <div class="fg" style="margin-top:1rem;"><label>Soft Skills</label><div id="chipsSoft"></div><div style="display:flex;gap:.5rem;"><input class="fi" id="newSoft" placeholder="Add skill…" style="margin-bottom:0;"><button class="abtn" onclick="addSkill('soft')">＋</button></div></div>
+          <div class="amsg" id="mSkills"></div>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="asec" id="sec-exp">
+          <div id="expList"></div>
+          <button class="abtn sec" onclick="newExpForm()">＋ Add experience</button>
+          <div id="expForm" style="display:none;margin-top:1rem;border-top:1px solid var(--border);padding-top:1rem;">
+            <input type="hidden" id="fEId">
+            <div class="f2g"><div class="fg"><label>Role (EN)</label><input class="fi" id="fERoleEn"></div><div class="fg"><label>Role (AR)</label><input class="fi" id="fERoleAr" dir="rtl"></div></div>
+            <div class="fg"><label>Company</label><input class="fi" id="fECompany"></div>
+            <div class="f2g"><div class="fg"><label>Date (EN)</label><input class="fi" id="fEDateEn"></div><div class="fg"><label>Date (AR)</label><input class="fi" id="fEDateAr" dir="rtl"></div></div>
+            <div class="fg"><label>Points EN (one per line)</label><textarea class="fi" id="fEPointsEn"></textarea></div>
+            <div class="fg"><label>Points AR (one per line)</label><textarea class="fi" id="fEPointsAr" dir="rtl"></textarea></div>
+            <button class="abtn" onclick="saveExp()">SAVE</button>
+            <button class="abtn sec" onclick="cancelExpForm()">Cancel</button>
+            <div class="amsg" id="mExp"></div>
+          </div>
+        </div>
+
+        <!-- PROJECTS -->
+        <div class="asec" id="sec-proj">
+          <div id="projList"></div>
+          <button class="abtn sec" onclick="newProjForm()">＋ Add project</button>
+          <div id="projForm" style="display:none;margin-top:1rem;border-top:1px solid var(--border);padding-top:1rem;">
+            <input type="hidden" id="fPId">
+            <div class="f2g"><div class="fg"><label>Name (EN)</label><input class="fi" id="fPNameEn"></div><div class="fg"><label>Name (AR)</label><input class="fi" id="fPNameAr" dir="rtl"></div></div>
+            <div class="fg"><label>Description (EN)</label><textarea class="fi" id="fPDescEn"></textarea></div>
+            <div class="fg"><label>Description (AR)</label><textarea class="fi" id="fPDescAr" dir="rtl"></textarea></div>
+            <div class="f2g"><div class="fg"><label>Category</label><input class="fi" id="fPCat"></div><div class="fg"><label>Emoji</label><input class="fi" id="fPEmoji"></div></div>
+            <div class="fg"><label>Tags (comma separated)</label><input class="fi" id="fPTags"></div>
+            <button class="abtn" onclick="saveProj()">SAVE</button>
+            <button class="abtn sec" onclick="cancelProjForm()">Cancel</button>
+            <div class="amsg" id="mProj"></div>
+          </div>
+        </div>
+
+        <!-- CERTS -->
+        <div class="asec" id="sec-cert">
+          <div id="certList"></div>
+          <button class="abtn sec" onclick="newCertForm()">＋ Add certificate</button>
+          <div id="certForm" style="display:none;margin-top:1rem;border-top:1px solid var(--border);padding-top:1rem;">
+            <input type="hidden" id="fCId">
+            <div class="f2g"><div class="fg"><label>Name (EN)</label><input class="fi" id="fCNameEn"></div><div class="fg"><label>Name (AR)</label><input class="fi" id="fCNameAr" dir="rtl"></div></div>
+            <div class="f2g"><div class="fg"><label>Issuer</label><input class="fi" id="fCIssuer"></div><div class="fg"><label>Icon (emoji)</label><input class="fi" id="fCIcon"></div></div>
+            <button class="abtn" onclick="saveCert()">SAVE</button>
+            <button class="abtn sec" onclick="cancelCertForm()">Cancel</button>
+            <div class="amsg" id="mCert"></div>
+          </div>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="asec" id="sec-contact">
+          <div class="f2g"><div class="fg"><label>Email</label><input class="fi" id="fCoEmail"></div><div class="fg"><label>Phone</label><input class="fi" id="fCoPhone"></div></div>
+          <div class="fg"><label>LinkedIn URL</label><input class="fi" id="fCoLinkedin"></div>
+          <div class="fg"><label>Availability (EN)</label><input class="fi" id="fCoAvailEn"></div>
+          <div class="fg"><label>Availability (AR)</label><input class="fi" id="fCoAvailAr" dir="rtl"></div>
+          <div class="fg"><label>Message (EN)</label><textarea class="fi" id="fCoBlurbEn"></textarea></div>
+          <div class="fg"><label>Message (AR)</label><textarea class="fi" id="fCoBlurbAr" dir="rtl"></textarea></div>
+          <button class="abtn" onclick="saveContact()">SAVE</button>
+          <div class="amsg" id="mContact"></div>
+        </div>
+
+        <!-- PHOTO -->
+        <div class="asec" id="sec-photo">
+          <img class="photo-preview" id="photoPrev" src="">
+          <div class="hint">Upload a square-ish photo. It's stored as a compressed image and shown in the hero card.</div>
+          <input type="file" accept="image/*" class="fi" id="photoFile" onchange="handlePhoto(event)">
+          <div class="amsg" id="mPhoto"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
+// ═══════════════════════════════════════════════════
+// SUPABASE CONFIG — replace with your own project values
+// ═══════════════════════════════════════════════════
+const SB = "https://YOUR-PROJECT-REF.supabase.co";
+const SK = "YOUR-ANON-PUBLIC-KEY";
+
+let ACCESS_TOKEN = null;
+
+// ── low level REST helper ──
+async function dbq(table, opts) {
+  opts = opts || {};
+  const method = opts.m || "GET";
+  const filter = opts.f || "";
+  const body = opts.b || null;
+  const token = method === "GET" ? SK : (ACCESS_TOKEN || SK);
+  const headers = { "apikey": SK, "Authorization": "Bearer " + token, "Content-Type": "application/json" };
+  if (method === "POST" || method === "PATCH") headers["Prefer"] = "return=representation";
+  const res = await fetch(SB + "/rest/v1/" + table + "?select=*" + filter, { method, headers, body: body ? JSON.stringify(body) : undefined });
+  if (!res.ok) { const t = await res.text(); throw new Error(t); }
+  if (method === "DELETE" || res.status === 204) return null;
+  return res.json();
+}
+const DG = (t, f) => dbq(t, { f: f || "" });
+const DP = (t, b) => dbq(t, { m: "POST", b });
+const DU1 = (t, b) => dbq(t, { m: "PATCH", f: "&id=eq.1", b });
+const DU = (t, id, b) => dbq(t, { m: "PATCH", f: "&id=eq." + id, b });
+const DD = (t, id) => dbq(t, { m: "DELETE", f: "&id=eq." + id });
+
+function svi(show) { document.getElementById("svi").style.display = show ? "block" : "none"; }
+function msg(id, text, isErr) { const el = document.getElementById(id); el.textContent = text; el.className = "amsg " + (isErr ? "err" : "ok"); setTimeout(() => { el.textContent = ""; }, 3500); }
+
+// ── STATE ──
+let curLang = "en";
+let hero = {}, about = {}, skills = [], exp = [], projects = [], certs = [], contact = {}, photoUrl = "";
+
+async function loadAll() {
+  try {
+    const [h, a, sk, e, p, c, co, ph] = await Promise.all([
+      DG("hero", "&id=eq.1"), DG("about", "&id=eq.1"), DG("skills", "&order=sort_order.asc"),
+      DG("experience", "&order=sort_order.asc"), DG("projects", "&order=sort_order.asc"),
+      DG("certificates", "&order=sort_order.asc"), DG("contact", "&id=eq.1"), DG("profile", "&id=eq.1")
+    ]);
+    hero = h[0] || {}; about = a[0] || {}; skills = sk || []; exp = e || []; projects = p || [];
+    certs = c || []; contact = co[0] || {}; photoUrl = (ph[0] && ph[0].photo_url) || "";
+    rAll();
+  } catch (err) { console.error("loadAll failed:", err); }
+}
+
+function rAll() { rHero(); rAbout(); rSkills(); rExp(); rProjects(); rCerts(); rContact(); rPhoto(); }
+
+function rHero() {
+  document.getElementById("hFname").textContent = hero.fname || "";
+  document.getElementById("hLname").textContent = hero.lname || "";
+  document.getElementById("hTitle").textContent = curLang === "ar" ? (hero.title_ar || "") : (hero.title_en || "");
+  document.getElementById("footName").textContent = (hero.fname || "") + " " + (hero.lname || "");
+  document.getElementById("aboutName").textContent = hero.fname || "";
+  document.getElementById("cvLink").href = hero.cv_link || "#";
+  document.getElementById("sProjects").textContent = projects.length;
+  document.getElementById("sExp").textContent = exp.length;
+  document.getElementById("sCerts").textContent = certs.length;
+  document.getElementById("aProj").textContent = projects.length + "+";
+  restartTyping();
+}
+
+function rAbout() {
+  document.getElementById("aboutBio").textContent = curLang === "ar" ? (about.bio_ar || "") : (about.bio_en || "");
+  document.getElementById("aTrain").textContent = (about.trainings_count || 0) + "+";
+  document.getElementById("specLoc").textContent = about.location || "";
+  const rows = [
+    ["University", about.university],
+    ["Degree", curLang === "ar" ? about.degree_ar : about.degree_en],
+    ["Location", about.location],
+    ["Email", about.email],
+    ["Phone", about.phone]
+  ];
+  document.getElementById("aboutInfo").innerHTML = rows.map(r => `<div class="ainfo-row"><span>${r[0]}</span><span>${r[1] || ""}</span></div>`).join("");
+}
+
+function rSkills() {
+  const groups = [["domain", "Domain", "التخصص"], ["technical", "Technical", "تقني"], ["soft", "Soft Skills", "مهارات شخصية"]];
+  document.getElementById("skillsWrap").innerHTML = groups.map(g => {
+    const items = skills.filter(s => s.group_key === g[0]);
+    const label = curLang === "ar" ? g[2] : g[1];
+    return `<div class="skill-group"><h4>${label}</h4><div class="skill-chips">${items.map(i => `<span class="chip">${i.name}</span>`).join("")}</div></div>`;
+  }).join("");
+}
+
+function rExp() {
+  document.getElementById("expTimeline").innerHTML = exp.map(e => {
+    const role = curLang === "ar" ? e.role_ar : e.role_en;
+    const date = curLang === "ar" ? e.date_label_ar : e.date_label_en;
+    const pts = curLang === "ar" ? (e.points_ar || []) : (e.points_en || []);
+    return `<div class="tl-item"><div class="tl-dot"></div><div class="tl-card">
+      <div class="tl-role">${role || ""}</div><div class="tl-meta">${e.company || ""}</div><div class="tl-date">${date || ""}</div>
+      <ul class="tl-points">${pts.map(p => `<li>${p}</li>`).join("")}</ul></div></div>`;
+  }).join("");
+}
+
+let curFilter = "All";
+function rProjects() {
+  const cats = ["All", ...new Set(projects.map(p => p.category))];
+  document.getElementById("pfilters").innerHTML = cats.map(c => `<button class="pf-btn${c === curFilter ? " on" : ""}" onclick="filterProj('${c}',this)">${c}</button>`).join("");
+  document.getElementById("pgrid").innerHTML = projects.map(p => {
+    const name = curLang === "ar" ? p.name_ar : p.name_en;
+    const desc = curLang === "ar" ? p.desc_ar : p.desc_en;
+    const hide = curFilter !== "All" && p.category !== curFilter ? " hide" : "";
+    return `<div class="pcard${hide}" data-cat="${p.category}"><div class="pcard-top"><span class="pcard-emoji">${p.emoji || ""}</span><span class="pcard-cat">${p.category || ""}</span></div>
+      <h4>${name || ""}</h4><p>${desc || ""}</p><div class="pcard-tags">${(p.tags || []).map(t => `<span class="ptag">${t}</span>`).join("")}</div></div>`;
+  }).join("");
+}
+function filterProj(cat, btn) { curFilter = cat; rProjects(); }
+
+function rCerts() {
+  document.getElementById("certsGrid").innerHTML = certs.map(c => {
+    const name = curLang === "ar" ? c.name_ar : c.name_en;
+    return `<div class="ccard"><div class="cicon">${c.icon || ""}</div><div><h5>${name || ""}</h5><span>${c.issuer || ""}</span></div></div>`;
+  }).join("");
+}
+
+function rContact() {
+  document.getElementById("availTxt").textContent = curLang === "ar" ? (contact.availability_ar || "") : (contact.availability_en || "");
+  document.getElementById("blurbTxt").textContent = curLang === "ar" ? (contact.blurb_ar || "") : (contact.blurb_en || "");
+  const links = [
+    ["✉️", "Email", contact.email, "mailto:" + contact.email],
+    ["📞", "Phone", contact.phone, "tel:+" + (contact.phone || "").replace(/^0/, "20")],
+    ["🔗", "LinkedIn", (contact.linkedin_url || "").replace("https://", ""), contact.linkedin_url],
+    ["📍", "Location", about.location, "mailto:" + contact.email]
+  ];
+  document.getElementById("clinksWrap").innerHTML = links.map(l => `<a class="clink" href="${l[3] || "#"}" target="${l[1] === "LinkedIn" ? "_blank" : "_self"}"><span class="ic">${l[0]}</span><span><span class="lbl">${l[1]}</span><span class="val">${l[2] || ""}</span></span></a>`).join("");
+}
+
+function rPhoto() {
+  const img = document.getElementById("profileImg"), emoji = document.getElementById("profileEmoji");
+  if (photoUrl) { img.src = photoUrl; img.style.display = "block"; emoji.style.display = "none"; }
+  else { img.style.display = "none"; emoji.style.display = "block"; }
+  document.getElementById("photoPrev").src = photoUrl || "";
+}
+
 // ══ SPLASH SEQUENCE ══
-const chip=document.getElementById("splash-chip"),sname=document.getElementById("splash-name"),splash=document.getElementById("splash");
-setTimeout(()=>{chip.classList.add("p1");sname.classList.add("p1");},50);
-setTimeout(()=>{chip.classList.remove("p1");chip.classList.add("p2");sname.classList.remove("p1");sname.classList.add("p2");},900);
-setTimeout(()=>{splash.classList.add("fadeout");},1750);
-setTimeout(()=>{splash.style.display="none";document.getElementById("mainNav").classList.add("show");document.getElementById("heroTxt").classList.add("on");document.getElementById("heroVis").classList.add("on");startCounters();},2300);
+const chip = document.getElementById("splash-chip"), sname = document.getElementById("splash-name"), splash = document.getElementById("splash");
+setTimeout(() => { chip.classList.add("p1"); sname.classList.add("p1"); }, 50);
+setTimeout(() => { chip.classList.remove("p1"); chip.classList.add("p2"); sname.classList.remove("p1"); sname.classList.add("p2"); }, 900);
+setTimeout(() => { splash.classList.add("fadeout"); }, 1750);
+setTimeout(async () => {
+  splash.style.display = "none";
+  document.getElementById("loadscr").style.display = "none";
+  document.getElementById("mainNav").classList.add("show");
+  document.getElementById("heroTxt").classList.add("on");
+  document.getElementById("heroVis").classList.add("on");
+  await loadAll();
+  startCounters();
+}, 2300);
 
 // ══ TYPING EFFECT ══
-const roles={en:["IoT Developer","Embedded Systems Engineer","Network Engineer","Hardware Enthusiast"],ar:["مطور إنترنت الأشياء","مهندس أنظمة مدمجة","مهندس شبكات","شغوف بالأجهزة"]};
-let curLang="en",ri=0,ci=0,deleting=false;
-function typeLoop(){
-  const list=roles[curLang],word=list[ri%list.length],el=document.getElementById("typeTxt");
-  if(!deleting){ci++;if(ci>word.length){deleting=true;setTimeout(typeLoop,1200);return;}}
-  else{ci--;if(ci<0){deleting=false;ri++;ci=0;}}
-  el.textContent=word.slice(0,ci);
-  setTimeout(typeLoop,deleting?35:75);
+let ri = 0, ci = 0, deleting = false, typingTimer = null;
+function restartTyping() { ri = 0; ci = 0; deleting = false; if (typingTimer) clearTimeout(typingTimer); typeLoop(); }
+function typeLoop() {
+  const list = (curLang === "ar" ? hero.typing_roles_ar : hero.typing_roles_en) || [];
+  if (!list.length) return;
+  const word = list[ri % list.length], el = document.getElementById("typeTxt");
+  if (!deleting) { ci++; if (ci > word.length) { deleting = true; typingTimer = setTimeout(typeLoop, 1200); return; } }
+  else { ci--; if (ci < 0) { deleting = false; ri++; ci = 0; } }
+  el.textContent = word.slice(0, ci);
+  typingTimer = setTimeout(typeLoop, deleting ? 35 : 75);
 }
-typeLoop();
 
 // ══ COUNTERS ══
-function startCounters(){
-  document.querySelectorAll(".snum[data-count]").forEach(el=>{
-    const target=+el.dataset.count;let cur=0;
-    const step=()=>{cur+=Math.max(1,Math.ceil(target/24));if(cur>=target){el.textContent=target;return;}el.textContent=cur;requestAnimationFrame(()=>setTimeout(step,25));};
-    step();
+function startCounters() {
+  document.querySelectorAll(".snum").forEach(el => {
+    const target = +el.textContent || 0; if (!target) return;
+    let cur = 0;
+    const step = () => { cur += Math.max(1, Math.ceil(target / 24)); if (cur >= target) { el.textContent = target; return; } el.textContent = cur; requestAnimationFrame(() => setTimeout(step, 25)); };
+    el.textContent = 0; step();
   });
 }
 
 // ══ NAV / MENU ══
-function toggleMenu(){document.getElementById("navLinks").classList.toggle("open");}
-document.querySelectorAll(".nav-links a").forEach(a=>a.addEventListener("click",()=>document.getElementById("navLinks").classList.remove("open")));
-window.addEventListener("scroll",()=>{
-  const secs=document.querySelectorAll("section");let cur="";
-  secs.forEach(s=>{if(scrollY>=s.offsetTop-140)cur=s.id;});
-  document.querySelectorAll(".nav-links a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+cur));
+function toggleMenu() { document.getElementById("navLinks").classList.toggle("open"); }
+document.querySelectorAll(".nav-links a").forEach(a => a.addEventListener("click", () => document.getElementById("navLinks").classList.remove("open")));
+window.addEventListener("scroll", () => {
+  const secs = document.querySelectorAll("section"); let cur = "";
+  secs.forEach(s => { if (scrollY >= s.offsetTop - 140) cur = s.id; });
+  document.querySelectorAll(".nav-links a").forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + cur));
 });
 
 // ══ LANG TOGGLE ══
-function toggleLang(){
-  curLang=curLang==="en"?"ar":"en";
-  document.documentElement.lang=curLang;
-  document.documentElement.dir=curLang==="ar"?"rtl":"ltr";
-  document.querySelectorAll("[data-en]").forEach(el=>{
-    const v=curLang==="ar"?el.getAttribute("data-ar"):el.getAttribute("data-en");
-    if(v!==null)el.innerHTML=v;
+function toggleLang() {
+  curLang = curLang === "en" ? "ar" : "en";
+  document.documentElement.lang = curLang;
+  document.documentElement.dir = curLang === "ar" ? "rtl" : "ltr";
+  document.querySelectorAll("[data-en]").forEach(el => {
+    const v = curLang === "ar" ? el.getAttribute("data-ar") : el.getAttribute("data-en");
+    if (v !== null) el.innerHTML = v;
   });
-  document.getElementById("langBtn").textContent=curLang==="ar"?"EN":"AR";
-  ri=0;ci=0;deleting=false;
+  document.getElementById("langBtn").textContent = curLang === "ar" ? "EN" : "AR";
+  rAll();
 }
 
 // ══ SCROLL REVEAL ══
-const rvEls=document.querySelectorAll(".rv,.rv-l,.rv-r");
-const io=new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    const el=e.target;
-    if(e.isIntersecting){el.classList.remove("out-down","out-up");el.classList.add("in");}
-    else{el.classList.remove("in");el.classList.add(e.boundingClientRect.top<0?"out-up":"out-down");}
+const rvEls = document.querySelectorAll(".rv,.rv-l,.rv-r");
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    const el = e.target;
+    if (e.isIntersecting) { el.classList.remove("out-down", "out-up"); el.classList.add("in"); }
+    else { el.classList.remove("in"); el.classList.add(e.boundingClientRect.top < 0 ? "out-up" : "out-down"); }
   });
-},{threshold:.15});
-rvEls.forEach(el=>io.observe(el));
+}, { threshold: .15 });
+rvEls.forEach(el => io.observe(el));
 
-const astatIo=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("go");});},{threshold:.4});
-document.querySelectorAll(".astat").forEach(el=>astatIo.observe(el));
+// ═══════════════════════════════════════════════════
+// ADMIN — auth + CRUD
+// ═══════════════════════════════════════════════════
+document.getElementById("afab").onclick = () => { document.getElementById("adminOv").classList.add("show"); };
+function closeAdmin() { document.getElementById("adminOv").classList.remove("show"); }
 
-// ══ PROJECTS DATA ══
-const projects=[
-  {emoji:"🅿️",cat:"IoT",nameEn:"Car Parking Assistant System",nameAr:"نظام مساعد ركن السيارات",descEn:"IoT-based parking assistant using ultrasonic sensors to detect car positions and availability, with a real-time visualization dashboard for monitoring and alerts.",descAr:"نظام مساعد لركن السيارات يعتمد على حساسات الموجات فوق الصوتية مع لوحة تحكم للمراقبة الفورية.",tags:["Ultrasonic Sensors","IoT","Dashboard"]},
-  {emoji:"💡",cat:"IoT",nameEn:"Smart Energy Consumption with Auto Light Control",nameAr:"استهلاك طاقة ذكي مع تحكم إضاءة تلقائي",descEn:"Energy optimization system inspired by smart grid concepts, integrating sensors with Python-based data acquisition to automate lighting and reduce waste.",descAr:"نظام لتحسين استهلاك الطاقة مستوحى من الشبكات الذكية، يدمج الحساسات مع بايثون لأتمتة الإضاءة.",tags:["Python","Sensors","Automation"]},
-  {emoji:"🎮",cat:"Embedded",nameEn:"Gesture-Controlled Car",nameAr:"سيارة تُتحكم بالإيماءات",descEn:"A car integrating Arduino Nano, MPU6050, and Bluetooth HC-05 for wireless gesture-based control, translating hand gestures into vehicle movements.",descAr:"سيارة تدمج Arduino Nano و MPU6050 وبلوتوث HC-05 للتحكم اللاسلكي بالإيماءات.",tags:["Arduino Nano","MPU6050","Bluetooth"]},
-  {emoji:"⚖️",cat:"Control",nameEn:"Self-Balancing System",nameAr:"نظام موازنة ذاتية",descEn:"Real-time self-balancing system using Arduino, MPU6050, and PID control, applying control theory to maintain stability like a robotic balance mechanism.",descAr:"نظام موازنة ذاتية في الوقت الحقيقي باستخدام Arduino و MPU6050 وتحكم PID.",tags:["Arduino","PID Control","MPU6050"]},
-  {emoji:"🔆",cat:"IoT",nameEn:"ESP32 Smart LED Control via MQTT",nameAr:"تحكم إضاءة ذكي بـ ESP32 عبر MQTT",descEn:"ESP32 + MQTT system for LED control and monitoring, with a PC-based Python client to publish commands, set temperature thresholds, and automate relay control.",descAr:"نظام ESP32 و MQTT للتحكم بالإضاءة ومراقبتها مع عميل بايثون لإصدار الأوامر وأتمتة التحكم.",tags:["ESP32","MQTT","Python"]},
-  {emoji:"🌡️",cat:"IoT",nameEn:"IoT Temperature Monitoring & Control",nameAr:"مراقبة وتحكم بالحرارة عبر إنترنت الأشياء",descEn:"Temperature monitoring system using Arduino, Wi-Fi module and an online dashboard, with threshold alarms and remote LED control.",descAr:"نظام مراقبة حرارة باستخدام Arduino ووحدة واي فاي ولوحة تحكم أونلاين مع تنبيهات وتحكم عن بعد.",tags:["Arduino","Wi-Fi","Dashboard"]},
-  {emoji:"🏋️",cat:"Mobile",nameEn:"Fitness App — Flutter",nameAr:"تطبيق لياقة — Flutter",descEn:"Flutter fitness app with REST API integration, Firebase Authentication, Hive for offline persistence, and Cubit (flutter_bloc) state management.",descAr:"تطبيق لياقة بـ Flutter مع REST API ومصادقة Firebase وتخزين Hive وإدارة حالة بـ Cubit.",tags:["Flutter","Firebase","Cubit"]},
-];
-const cats=["All",...new Set(projects.map(p=>p.cat))];
-const pf=document.getElementById("pfilters"),pg=document.getElementById("pgrid");
-pf.innerHTML=cats.map((c,i)=>`<button class="pf-btn${i===0?' on':''}" data-cat="${c}" onclick="filterProj('${c}',this)">${c}</button>`).join("");
-pg.innerHTML=projects.map(p=>`
-  <div class="pcard" data-cat="${p.cat}">
-    <div class="pcard-top"><span class="pcard-emoji">${p.emoji}</span><span class="pcard-cat">${p.cat}</span></div>
-    <h4 data-en="${p.nameEn}" data-ar="${p.nameAr}">${p.nameEn}</h4>
-    <p data-en="${p.descEn}" data-ar="${p.descAr}">${p.descEn}</p>
-    <div class="pcard-tags">${p.tags.map(t=>`<span class="ptag">${t}</span>`).join("")}</div>
-  </div>`).join("");
-function filterProj(cat,btn){
-  document.querySelectorAll(".pf-btn").forEach(b=>b.classList.remove("on"));btn.classList.add("on");
-  document.querySelectorAll(".pcard").forEach(c=>c.classList.toggle("hide",cat!=="All"&&c.dataset.cat!==cat));
+async function doLogin() {
+  const email = document.getElementById("aEmail").value.trim();
+  const pass = document.getElementById("aPass").value;
+  if (!email || !pass) { msg("lMsg", "❌ Enter email & password", true); return; }
+  try {
+    const r = await fetch(SB + "/auth/v1/token?grant_type=password", {
+      method: "POST", headers: { "apikey": SK, "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password: pass })
+    });
+    const d = await r.json();
+    if (!r.ok || !d.access_token) { msg("lMsg", "❌ " + (d.error_description || d.msg || "Wrong email or password"), true); return; }
+    ACCESS_TOKEN = d.access_token;
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("aPanel").style.display = "block";
+    fillForms();
+  } catch (e) { msg("lMsg", "❌ " + e.message, true); }
+}
+
+function fillForms() {
+  document.getElementById("fHFname").value = hero.fname || "";
+  document.getElementById("fHLname").value = hero.lname || "";
+  document.getElementById("fHTitleEn").value = hero.title_en || "";
+  document.getElementById("fHTitleAr").value = hero.title_ar || "";
+  document.getElementById("fHRolesEn").value = (hero.typing_roles_en || []).join(", ");
+  document.getElementById("fHRolesAr").value = (hero.typing_roles_ar || []).join(", ");
+  document.getElementById("fHCv").value = hero.cv_link || "";
+
+  document.getElementById("fABioEn").value = about.bio_en || "";
+  document.getElementById("fABioAr").value = about.bio_ar || "";
+  document.getElementById("fAUni").value = about.university || "";
+  document.getElementById("fADegEn").value = about.degree_en || "";
+  document.getElementById("fADegAr").value = about.degree_ar || "";
+  document.getElementById("fALoc").value = about.location || "";
+  document.getElementById("fATrain").value = about.trainings_count || 0;
+  document.getElementById("fAEmail").value = about.email || "";
+  document.getElementById("fAPhone").value = about.phone || "";
+
+  document.getElementById("fCoEmail").value = contact.email || "";
+  document.getElementById("fCoPhone").value = contact.phone || "";
+  document.getElementById("fCoLinkedin").value = contact.linkedin_url || "";
+  document.getElementById("fCoAvailEn").value = contact.availability_en || "";
+  document.getElementById("fCoAvailAr").value = contact.availability_ar || "";
+  document.getElementById("fCoBlurbEn").value = contact.blurb_en || "";
+  document.getElementById("fCoBlurbAr").value = contact.blurb_ar || "";
+
+  renderSkillChips(); renderExpList(); renderProjList(); renderCertList();
+}
+
+function aTab(t) {
+  document.querySelectorAll(".atab").forEach(b => b.classList.toggle("on", b.dataset.t === t));
+  document.querySelectorAll(".asec").forEach(s => s.classList.toggle("on", s.id === "sec-" + t));
+}
+
+// ── HERO ──
+async function saveHero() {
+  svi(true);
+  const b = {
+    fname: document.getElementById("fHFname").value, lname: document.getElementById("fHLname").value,
+    title_en: document.getElementById("fHTitleEn").value, title_ar: document.getElementById("fHTitleAr").value,
+    typing_roles_en: document.getElementById("fHRolesEn").value.split(",").map(s => s.trim()).filter(Boolean),
+    typing_roles_ar: document.getElementById("fHRolesAr").value.split(",").map(s => s.trim()).filter(Boolean),
+    cv_link: document.getElementById("fHCv").value
+  };
+  try { await DU1("hero", b); hero = { ...hero, ...b }; rHero(); msg("mHero", "✅ Saved"); } catch (e) { msg("mHero", "❌ " + e.message, true); }
+  svi(false);
+}
+
+// ── ABOUT ──
+async function saveAbout() {
+  svi(true);
+  const b = {
+    bio_en: document.getElementById("fABioEn").value, bio_ar: document.getElementById("fABioAr").value,
+    university: document.getElementById("fAUni").value,
+    degree_en: document.getElementById("fADegEn").value, degree_ar: document.getElementById("fADegAr").value,
+    location: document.getElementById("fALoc").value, trainings_count: +document.getElementById("fATrain").value || 0,
+    email: document.getElementById("fAEmail").value, phone: document.getElementById("fAPhone").value
+  };
+  try { await DU1("about", b); about = { ...about, ...b }; rAbout(); msg("mAbout", "✅ Saved"); } catch (e) { msg("mAbout", "❌ " + e.message, true); }
+  svi(false);
+}
+
+// ── SKILLS ──
+function renderSkillChips() {
+  ["domain", "technical", "soft"].forEach(g => {
+    const wrap = document.getElementById("chips" + g.charAt(0).toUpperCase() + g.slice(1));
+    wrap.innerHTML = skills.filter(s => s.group_key === g).map(s => `<span class="chipedit">${s.name}<button onclick="delSkill(${s.id})">✕</button></span>`).join("");
+  });
+}
+async function addSkill(group) {
+  const input = document.getElementById("new" + group.charAt(0).toUpperCase() + group.slice(1));
+  const name = input.value.trim(); if (!name) return;
+  svi(true);
+  try {
+    const r = await DP("skills", { group_key: group, name, sort_order: skills.filter(s => s.group_key === group).length + 1 });
+    skills.push(r[0]); input.value = ""; renderSkillChips(); rSkills(); msg("mSkills", "✅ Added");
+  } catch (e) { msg("mSkills", "❌ " + e.message, true); }
+  svi(false);
+}
+async function delSkill(id) {
+  svi(true);
+  try { await DD("skills", id); skills = skills.filter(s => s.id !== id); renderSkillChips(); rSkills(); msg("mSkills", "✅ Removed"); }
+  catch (e) { msg("mSkills", "❌ " + e.message, true); }
+  svi(false);
+}
+
+// ── EXPERIENCE ──
+function renderExpList() {
+  document.getElementById("expList").innerHTML = exp.map(e => `<div class="mitem"><div class="mitem-hdr"><b>${e.role_en}</b><div class="mitem-actions"><button class="ibtn" onclick="editExp(${e.id})">Edit</button><button class="ibtn del" onclick="delExp(${e.id})">Delete</button></div></div><div style="color:var(--muted);font-size:.78rem;">${e.company} · ${e.date_label_en}</div></div>`).join("");
+}
+function newExpForm() { document.getElementById("fEId").value = ""; ["fERoleEn", "fERoleAr", "fECompany", "fEDateEn", "fEDateAr", "fEPointsEn", "fEPointsAr"].forEach(id => document.getElementById(id).value = ""); document.getElementById("expForm").style.display = "block"; }
+function cancelExpForm() { document.getElementById("expForm").style.display = "none"; }
+function editExp(id) {
+  const e = exp.find(x => x.id === id); if (!e) return;
+  document.getElementById("fEId").value = e.id;
+  document.getElementById("fERoleEn").value = e.role_en || ""; document.getElementById("fERoleAr").value = e.role_ar || "";
+  document.getElementById("fECompany").value = e.company || "";
+  document.getElementById("fEDateEn").value = e.date_label_en || ""; document.getElementById("fEDateAr").value = e.date_label_ar || "";
+  document.getElementById("fEPointsEn").value = (e.points_en || []).join("\n"); document.getElementById("fEPointsAr").value = (e.points_ar || []).join("\n");
+  document.getElementById("expForm").style.display = "block";
+}
+async function saveExp() {
+  svi(true);
+  const id = document.getElementById("fEId").value;
+  const b = {
+    role_en: document.getElementById("fERoleEn").value, role_ar: document.getElementById("fERoleAr").value,
+    company: document.getElementById("fECompany").value,
+    date_label_en: document.getElementById("fEDateEn").value, date_label_ar: document.getElementById("fEDateAr").value,
+    points_en: document.getElementById("fEPointsEn").value.split("\n").map(s => s.trim()).filter(Boolean),
+    points_ar: document.getElementById("fEPointsAr").value.split("\n").map(s => s.trim()).filter(Boolean)
+  };
+  try {
+    if (id) { await DU("experience", id, b); exp = exp.map(e => e.id == id ? { ...e, ...b } : e); }
+    else { b.sort_order = exp.length + 1; const r = await DP("experience", b); exp.push(r[0]); }
+    renderExpList(); rExp(); rHero(); cancelExpForm(); msg("mExp", "✅ Saved");
+  } catch (e) { msg("mExp", "❌ " + e.message, true); }
+  svi(false);
+}
+async function delExp(id) {
+  svi(true);
+  try { await DD("experience", id); exp = exp.filter(e => e.id !== id); renderExpList(); rExp(); rHero(); msg("mExp", "✅ Deleted"); }
+  catch (e) { msg("mExp", "❌ " + e.message, true); }
+  svi(false);
+}
+
+// ── PROJECTS ──
+function renderProjList() {
+  document.getElementById("projList").innerHTML = projects.map(p => `<div class="mitem"><div class="mitem-hdr"><b>${p.emoji} ${p.name_en}</b><div class="mitem-actions"><button class="ibtn" onclick="editProj(${p.id})">Edit</button><button class="ibtn del" onclick="delProj(${p.id})">Delete</button></div></div><div style="color:var(--muted);font-size:.78rem;">${p.category}</div></div>`).join("");
+}
+function newProjForm() { document.getElementById("fPId").value = ""; ["fPNameEn", "fPNameAr", "fPDescEn", "fPDescAr", "fPCat", "fPEmoji", "fPTags"].forEach(id => document.getElementById(id).value = ""); document.getElementById("projForm").style.display = "block"; }
+function cancelProjForm() { document.getElementById("projForm").style.display = "none"; }
+function editProj(id) {
+  const p = projects.find(x => x.id === id); if (!p) return;
+  document.getElementById("fPId").value = p.id;
+  document.getElementById("fPNameEn").value = p.name_en || ""; document.getElementById("fPNameAr").value = p.name_ar || "";
+  document.getElementById("fPDescEn").value = p.desc_en || ""; document.getElementById("fPDescAr").value = p.desc_ar || "";
+  document.getElementById("fPCat").value = p.category || ""; document.getElementById("fPEmoji").value = p.emoji || "";
+  document.getElementById("fPTags").value = (p.tags || []).join(", ");
+  document.getElementById("projForm").style.display = "block";
+}
+async function saveProj() {
+  svi(true);
+  const id = document.getElementById("fPId").value;
+  const b = {
+    name_en: document.getElementById("fPNameEn").value, name_ar: document.getElementById("fPNameAr").value,
+    desc_en: document.getElementById("fPDescEn").value, desc_ar: document.getElementById("fPDescAr").value,
+    category: document.getElementById("fPCat").value, emoji: document.getElementById("fPEmoji").value,
+    tags: document.getElementById("fPTags").value.split(",").map(s => s.trim()).filter(Boolean)
+  };
+  try {
+    if (id) { await DU("projects", id, b); projects = projects.map(p => p.id == id ? { ...p, ...b } : p); }
+    else { b.sort_order = projects.length + 1; const r = await DP("projects", b); projects.push(r[0]); }
+    renderProjList(); rProjects(); rHero(); cancelProjForm(); msg("mProj", "✅ Saved");
+  } catch (e) { msg("mProj", "❌ " + e.message, true); }
+  svi(false);
+}
+async function delProj(id) {
+  svi(true);
+  try { await DD("projects", id); projects = projects.filter(p => p.id !== id); renderProjList(); rProjects(); rHero(); msg("mProj", "✅ Deleted"); }
+  catch (e) { msg("mProj", "❌ " + e.message, true); }
+  svi(false);
+}
+
+// ── CERTS ──
+function renderCertList() {
+  document.getElementById("certList").innerHTML = certs.map(c => `<div class="mitem"><div class="mitem-hdr"><b>${c.icon} ${c.name_en}</b><div class="mitem-actions"><button class="ibtn" onclick="editCert(${c.id})">Edit</button><button class="ibtn del" onclick="delCert(${c.id})">Delete</button></div></div><div style="color:var(--muted);font-size:.78rem;">${c.issuer}</div></div>`).join("");
+}
+function newCertForm() { document.getElementById("fCId").value = ""; ["fCNameEn", "fCNameAr", "fCIssuer", "fCIcon"].forEach(id => document.getElementById(id).value = ""); document.getElementById("certForm").style.display = "block"; }
+function cancelCertForm() { document.getElementById("certForm").style.display = "none"; }
+function editCert(id) {
+  const c = certs.find(x => x.id === id); if (!c) return;
+  document.getElementById("fCId").value = c.id;
+  document.getElementById("fCNameEn").value = c.name_en || ""; document.getElementById("fCNameAr").value = c.name_ar || "";
+  document.getElementById("fCIssuer").value = c.issuer || ""; document.getElementById("fCIcon").value = c.icon || "";
+  document.getElementById("certForm").style.display = "block";
+}
+async function saveCert() {
+  svi(true);
+  const id = document.getElementById("fCId").value;
+  const b = { name_en: document.getElementById("fCNameEn").value, name_ar: document.getElementById("fCNameAr").value, issuer: document.getElementById("fCIssuer").value, icon: document.getElementById("fCIcon").value };
+  try {
+    if (id) { await DU("certificates", id, b); certs = certs.map(c => c.id == id ? { ...c, ...b } : c); }
+    else { b.sort_order = certs.length + 1; const r = await DP("certificates", b); certs.push(r[0]); }
+    renderCertList(); rCerts(); rHero(); cancelCertForm(); msg("mCert", "✅ Saved");
+  } catch (e) { msg("mCert", "❌ " + e.message, true); }
+  svi(false);
+}
+async function delCert(id) {
+  svi(true);
+  try { await DD("certificates", id); certs = certs.filter(c => c.id !== id); renderCertList(); rCerts(); rHero(); msg("mCert", "✅ Deleted"); }
+  catch (e) { msg("mCert", "❌ " + e.message, true); }
+  svi(false);
+}
+
+// ── CONTACT ──
+async function saveContact() {
+  svi(true);
+  const b = {
+    email: document.getElementById("fCoEmail").value, phone: document.getElementById("fCoPhone").value,
+    linkedin_url: document.getElementById("fCoLinkedin").value,
+    availability_en: document.getElementById("fCoAvailEn").value, availability_ar: document.getElementById("fCoAvailAr").value,
+    blurb_en: document.getElementById("fCoBlurbEn").value, blurb_ar: document.getElementById("fCoBlurbAr").value
+  };
+  try { await DU1("contact", b); contact = { ...contact, ...b }; rContact(); msg("mContact", "✅ Saved"); } catch (e) { msg("mContact", "❌ " + e.message, true); }
+  svi(false);
+}
+
+// ── PHOTO ──
+function handlePhoto(evt) {
+  const file = evt.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = new Image();
+    img.onload = async () => {
+      const maxDim = 500;
+      let w = img.width, h = img.height;
+      if (w > h && w > maxDim) { h = h * maxDim / w; w = maxDim; } else if (h > maxDim) { w = w * maxDim / h; h = maxDim; }
+      const canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h;
+      canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+      const dataUrl = canvas.toDataURL("image/jpeg", .82);
+      svi(true);
+      try { await DU1("profile", { photo_url: dataUrl }); photoUrl = dataUrl; rPhoto(); msg("mPhoto", "✅ Saved"); }
+      catch (e) { msg("mPhoto", "❌ " + e.message, true); }
+      svi(false);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
 }
 </script>
 </body>
