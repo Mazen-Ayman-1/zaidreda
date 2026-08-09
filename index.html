@@ -259,6 +259,7 @@ footer .hl{color:var(--accent);}
 .mhdr .x{cursor:pointer;color:var(--muted);font-size:1.3rem;line-height:1;background:none;border:none;}
 .mhdr .x:hover{color:var(--bad);}
 .mbody{overflow-y:auto;padding:1.4rem;flex:1;min-height:0;}
+#aPanel{display:flex;flex-direction:column;flex:1;min-height:0;}
 body.modal-open{overflow:hidden;}
 .login-box{padding:2rem;text-align:center;}
 .login-box p{color:var(--muted);font-size:.82rem;margin-bottom:1.2rem;}
@@ -466,6 +467,7 @@ textarea.fi{resize:vertical;min-height:70px;}
 
 <footer>
   © 2026 <span class="hl" id="footName">Zead Reda Abdallah</span> — <span data-en="Communication &amp; Electronics Engineer" data-ar="مهندس اتصالات وإلكترونيات">Communication &amp; Electronics Engineer</span>
+  <div style="margin-top:.5rem;opacity:.5;font-size:.65rem;">build: modal-scroll-v6</div>
 </footer>
 
 <!-- ══ ADMIN FAB ══ -->
@@ -864,7 +866,7 @@ async function doLogin() {
     if (!r.ok || !d.access_token) { msg("lMsg", "❌ " + (d.error_description || d.msg || "Wrong email or password"), true); return; }
     ACCESS_TOKEN = d.access_token;
     document.getElementById("loginBox").style.display = "none";
-    document.getElementById("aPanel").style.display = "block";
+    document.getElementById("aPanel").style.display = "flex";
     fillForms();
   } catch (e) { msg("lMsg", "❌ " + e.message, true); }
 }
